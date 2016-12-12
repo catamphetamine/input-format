@@ -15,7 +15,8 @@ import template_formatter from './template formatter'
 // in the right part of the `template` with `spacer`
 // which is a space (' ') character by default.
 //
-// `template` is the full-length template.
+// `template` is the template used to format the `value`.
+// It can be either a full-length template or a partial template.
 //
 // `formatter` can also be a string — a `template`
 // where character placeholders are denoted by 'x'es.
@@ -31,7 +32,7 @@ import template_formatter from './template formatter'
 //
 // The result is `{ text: '8 (80 )', caret: 4 }`.
 //
-export default function format({ value, caret }, formatter) // , spacer = ' '
+export default function format({ value, caret }, formatter)
 {
 	if (typeof formatter === 'string')
 	{
@@ -52,13 +53,6 @@ export default function format({ value, caret }, formatter) // , spacer = ' '
 			// Character placeholder found
 			if (text[index] !== template[index])
 			{
-				// // If this placeholder was left unfilled,
-				// // then no more characters are filled-in.
-				// if (text[index] === spacer)
-				// {
-				// 	break
-				// }
-
 				if (caret === 0)
 				{
 					found = true

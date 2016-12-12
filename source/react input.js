@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 
-import Input_controller from './input'
+import Input_controller from './input controller'
 
 // Usage:
 //

@@ -1,6 +1,6 @@
 {
   "name": "input-format",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Formatting user's text input on-the-fly",
   "main": "index.common.js",
   "jsnext:main": "index.es6.js",
