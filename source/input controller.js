@@ -86,13 +86,19 @@ export default class Input_controller
 		// Apply the pending operation to the <input/> textual value (if any)
 		if (operation)
 		{
-			{ value, caret } = edit(operation, value, caret)
+			const edit_result = edit(operation, value, caret)
+
+			value = edit_result.value
+			caret = edit_result.caret
 		}
 
 		// Format the <input/> textual value as a phone number
 		// (and reposition the caret accordingly)
-		let text
-		{ text, caret } = format(value, caret, this.format)
+
+		const format_result = format(value, caret, this.format)
+
+		const text = format_result.text
+		caret      = format_result.caret
 
 		// Set <input/> textual value manually to also set caret position
 		// and prevent React from resetting the caret position later
