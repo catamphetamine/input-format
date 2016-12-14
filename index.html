@@ -106,18 +106,21 @@
 
 					const code_sample =
 					`
+import { ReactInput, templateFormatter, templateParser } from 'input-format'
+
+const template = '(xxx) xxx-xxxx'
+
 <ReactInput
-	type="tel"
 	value={this.state.value}
 	onChange={value => this.setState({ value })}
-	parse={templateParser('(xxx) xxx-xxxx', (character, value) =>
+	format={templateFormatter(template)}
+	parse={templateParser(template, (character, value) =>
 	{
 		if (character >= '0' && character <= '9')
 		{
 			return character
 		}
-	})}
-	format={templateFormatter('(xxx) xxx-xxxx')}/>
+	})}/>
 					`
 					.trim()
 
