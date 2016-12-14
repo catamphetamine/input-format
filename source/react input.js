@@ -51,7 +51,7 @@ export default class ReactInput extends React.Component
 			<input
 				{...rest}
 				ref={ ref => this.input = ref }
-				value={ value === undefined ? '' : format(value).text }
+				value={format(value === undefined ? '' : value).text}
 				onKeyDown={this.input_controller.onKeyDown}
 				onChange={this.input_controller.onChange}
 				onPaste={this.input_controller.onPaste}

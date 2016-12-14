@@ -41,11 +41,12 @@ export default function format(value, caret, formatter)
 
 	const { text, template } = formatter(value)
 
-	let found = false
 	let index = 0
 
-	if (caret >= 0)
+	if (template && caret >= 0)
 	{
+		let found = false
+
 		let possibly_last_input_character_index = -1
 
 		while (index < text.length)

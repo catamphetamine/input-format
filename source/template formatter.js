@@ -10,6 +10,11 @@ import { count_occurences } from './helpers'
 //
 export default function template_formatter(template, placeholder = 'x')
 {
+	if (!template)
+	{
+		return value => ({ text: value })
+	}
+
 	const characters_in_template = count_occurences(placeholder, template)
 
 	return function(value)

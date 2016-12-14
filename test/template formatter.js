@@ -48,4 +48,11 @@ describe('template formatter', function()
 
 		expect(formatter('88005553535').text).to.equal('8 (800) 555-35-35')
 	})
+
+	it('should skip formatting when given no template', function()
+	{
+		const formatter = template_formatter()
+
+		expect(formatter('88005553535').text).to.equal('88005553535')
+	})
 })
