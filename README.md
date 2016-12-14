@@ -52,8 +52,7 @@ const parse = templateParser(TEMPLATE, (character, value) =>
 // function format(value) { return { text: '(800) 555-3535', template: '(xxx) xxx-xxxx' } }
 //
 // Arguments:
-//  * `character` is the currently parsed input text character.
-//  * `value` is the parsed value so far.
+//  * `value` is the parsed value to be formatted.
 //
 // Returns `{ text, template }`, where:
 //  * `text` is the formatted text
