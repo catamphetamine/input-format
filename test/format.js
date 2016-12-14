@@ -72,6 +72,22 @@ describe(`format`, function()
 		})
 	})
 
+	it('should format value with no template preserving caret position', function()
+	{
+		expect(format
+		(
+			'8005553535',
+			2,
+			// () => { text: '8005553535' }
+			() => {}
+		))
+		.to.deep.equal
+		({
+			text: '8005553535',
+			caret: 2
+		})
+	})
+
 	// it('should position caret correctly with partially filled templates using spacers', function()
 	// {
 	// 	expect(format

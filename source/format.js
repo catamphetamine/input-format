@@ -39,48 +39,54 @@ export default function format(value, caret, formatter)
 		formatter = template_formatter(formatter)
 	}
 
-	const { text, template } = formatter(value)
+	let { text, template } = formatter(value) || {}
 
-	let index = 0
-
-	if (template && caret >= 0)
+	if (text === undefined)
 	{
-		let found = false
+		 text = value
+	}
 
-		let possibly_last_input_character_index = -1
-
-		while (index < text.length)
+	if (template)
+	{
+		if (caret === undefined)
 		{
-			// Character placeholder found
-			if (text[index] !== template[index])
+			caret = text.length
+		}
+		else
+		{
+			let index = 0
+			let found = false
+
+			let possibly_last_input_character_index = -1
+
+			while (index < text.length)
 			{
-				if (caret === 0)
+				// Character placeholder found
+				if (text[index] !== template[index])
 				{
-					found = true
-					break
+					if (caret === 0)
+					{
+						found = true
+						caret = index
+						break
+					}
+
+					possibly_last_input_character_index = index
+
+					caret--
 				}
 
-				possibly_last_input_character_index = index
-
-				caret--
+				index++
 			}
 
-			index++
-		}
-
-		// If the caret was positioned after last input character,
-		// then the text caret index is just after the last input character.
-		if (!found)
-		{
-			index = possibly_last_input_character_index + 1
+			// If the caret was positioned after last input character,
+			// then the text caret index is just after the last input character.
+			if (!found)
+			{
+				caret = possibly_last_input_character_index + 1
+			}
 		}
 	}
 
-	const result =
-	{
-		text,
-		caret : caret === undefined ? text.length : index
-	}
-
-	return result
+	return { text, caret }
 }
