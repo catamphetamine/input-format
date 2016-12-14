@@ -24,9 +24,20 @@ import { templateParser, templateFormatter } from 'input-format'
 // US phone number template
 const TEMPLATE = '(xxx) xxx-xxxx'
 
-// Parses input text characters one-by-one.
-// `character` is the currently parsed input text character.
-// `value` is the parsed value so far.
+// `parse` function parses input text characters one-by-one.
+//
+// function parse(character, value) { return character }
+//
+// Arguments:
+//  * `character` is the currently parsed input text character.
+//  * `value` is the parsed value so far.
+//
+// Returns:
+//  * If it returns anything (not `undefined`) then it is appended to the `value`
+//
+// `templateParser` wrapper is a small helper
+// which enhances `parse` function to limit `value` max length
+// to the number of "x"-es in the template.
 //
 const parse = templateParser(TEMPLATE, (character, value) =>
 {
@@ -36,8 +47,19 @@ const parse = templateParser(TEMPLATE, (character, value) =>
   }
 })
 
-// Formats phone number digits using a template.
-// Can also be a function of `value` returning `{ text, template }`.
+// `format` function formats parsed value.
+//
+// function format(value) { return '(800) 555-3535' }
+//
+// Arguments:
+//  * `character` is the currently parsed input text character.
+//  * `value` is the parsed value so far.
+//
+// Returns `{ text, template }`, where:
+//  * `text` is the formatted text
+//  * `template` is the template used to format the `text`
+//    (can be both a partial template and a full template)
+//
 const format = templateFormatter(TEMPLATE)
 ```
 
