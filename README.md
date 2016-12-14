@@ -60,6 +60,8 @@ const parse = templateParser(TEMPLATE, (character, value) =>
 //  * `template` is the template used to format the `text`
 //    (can be both a partial template and a full template)
 //
+// `templateFormatter` helper creates a formatter based on a template.
+//
 const format = templateFormatter(TEMPLATE)
 ```
 
