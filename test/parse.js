@@ -28,19 +28,19 @@ describe(`parse`, function()
 		test_caret(2, 1)
 		test_caret(3, 2)
 
-		test_caret(4, 2)
-		test_caret(5, 2)
+		test_caret(4, 3)
+		test_caret(5, 3)
 
 		test_caret(6, 3)
 		test_caret(7, 4)
 		test_caret(8, 5)
 
-		test_caret(9, 5)
+		test_caret(9, 6)
 
 		test_caret(10, 6)
 		test_caret(11, 7)
 
-		test_caret(12, 7)
+		test_caret(12, 8)
 
 		test_caret(13, 8)
 		test_caret(14, 9)
