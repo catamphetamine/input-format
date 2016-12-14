@@ -17,23 +17,26 @@ npm install input-format --save
 Phone number formatting example
 
 ```js
-import { templateFormatter } from 'input-format'
+import { templateParser, templateFormatter } from 'input-format'
+
+// US phone number template
+const TEMPLATE = '(xxx) xxx-xxxx'
 
 // Parses input text characters one-by-one.
 // `character` is the currently parsed input text character.
 // `value` is the parsed value so far.
 //
-const parse = (character, value) =>
+const parse = templateParser(TEMPLATE, (character, value) =>
 {
   if (character >= '0' && character <= '9')
   {
     return character
   }
-}
+})
 
 // Formats phone number digits using a template.
 // Can also be a function of `value` returning `{ text, template }`.
-const format = 'x (xxx) xxx-xx-xx'
+const format = templateFormatter(TEMPLATE)
 ```
 
 React Component usage
@@ -48,7 +51,7 @@ import { ReactInput } from 'input-format'
   format={format}/>
 ```
 
-Low level API (for component developers)
+Lower level API (for component developers)
 
 ```js
 import { InputController } from 'input-format'
@@ -61,6 +64,48 @@ inputController.onCut(event)
 inputController.onPaste(event)
 inputController.onChange(event)
 inputController.onKeyDown(event)
+```
+
+Lowest level API
+
+```js
+import { parse, format } from 'input-format'
+
+function parse_digit(character, value)
+{
+  if (value.length < 10)
+  {
+    if (character >= '0' && character <= '9')
+    {
+      return character
+    }
+  }
+}
+
+function format_phone(value)
+{
+  ...
+
+  // Just as an example of a return value
+  return {
+    text: '(800) 555-3535',
+    template: '(xxx) xxx-xxxx'
+  }
+}
+
+let value
+let text = '(800) 555-3535'
+let caret = 4 // before the first zero
+
+{ value, caret } = parse(text, caret, parse_digit)
+
+value === '8005553535'
+caret === 2
+
+{ text, caret } = format(value, caret, format_phone)
+
+value === '(800) 555-3535'
+caret === 4
 ```
 
 ## Contributing

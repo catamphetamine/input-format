@@ -1,5 +1,11 @@
 export
 {
+	default as templateParser
+}
+from './source/template parser'
+
+export
+{
 	default as templateFormatter
 }
 from './source/template formatter'

@@ -20,6 +20,12 @@ export default class Input_controller
 		this.parse = parse
 		this.format = format
 		this.on_change = on_change
+
+		this.onCut = this.onCut.bind(this)
+		this.onPaste = this.onPaste.bind(this)
+		this.onChange = this.onChange.bind(this)
+		this.onKeyDown = this.onKeyDown.bind(this)
+		this.format_input_text = this.format_input_text.bind(this)
 	}
 
 	// Special handling for "Cut" event because
@@ -45,7 +51,9 @@ export default class Input_controller
 	//  erasing a digit)
 	onKeyDown(event)
 	{
-		switch (getOperation(event))
+		const operation = getOperation(event)
+
+		switch (operation)
 		{
 			case 'Delete':
 			case 'Backspace':
@@ -62,7 +70,7 @@ export default class Input_controller
 				if (selection)
 				{
 					let text = input.value
-					text = text.slice(0, selection.start) + text.slice(selection.end + 1)
+					text = text.slice(0, selection.start) + text.slice(selection.end)
 
 					input.value = text
 					setCaretPosition(input, selection.start)
@@ -86,7 +94,7 @@ export default class Input_controller
 		// Apply the pending operation to the <input/> textual value (if any)
 		if (operation)
 		{
-			const edit_result = edit(operation, value, caret)
+			const edit_result = edit(value, caret, operation)
 
 			value = edit_result.value
 			caret = edit_result.caret

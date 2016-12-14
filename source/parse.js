@@ -21,7 +21,7 @@ export default function parse(text, caret_position, parse_character)
 {
 	let value = ''
 
-	let focused_input_character_index = -1
+	let focused_input_character_index = 0
 
 	let index = 0
 	while (index < text.length)
@@ -32,25 +32,20 @@ export default function parse(text, caret_position, parse_character)
 		{
 			value += character
 
-			if (index <= caret_position)
+			if (caret_position !== undefined)
 			{
-				focused_input_character_index++
-			}
+				if (caret_position === index)
+				{
+					focused_input_character_index = value.length - 1;
+				}
+				else if (caret_position > index)
+				{
+					focused_input_character_index = value.length
+				}
+			 }
 		}
 
 		index++
-	}
-
-	// If "after last input character"
-	if (caret_position === text.length)
-	{
-		focused_input_character_index++
-	}
-
-	if (focused_input_character_index < 0)
-	{
-		// If "before the first input character"
-		focused_input_character_index = 0
 	}
 
 	// If caret position wasn't specified

@@ -45,7 +45,7 @@ export default class ReactInput extends React.Component
 
 	render()
 	{
-		const { value, format, ...rest } = this.props
+		const { value, parse, format, ...rest } = this.props
 
 		return (
 			<input

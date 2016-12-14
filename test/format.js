@@ -13,10 +13,8 @@ describe(`format`, function()
 		{
 			expect(format
 			(
-				{
-					value : '8005553535',
-					caret : digit_index
-				},
+				'8005553535',
+				digit_index,
 				formatter
 			))
 			.to.deep.equal
@@ -47,11 +45,11 @@ describe(`format`, function()
 	it('should autoconstruct template formatter from a template', function()
 	{
 		expect(format
-		({
-			value : '8005553535',
-			caret : 0
-		},
-		'(xxx) xxx-xx-xx'))
+		(
+			'8005553535',
+			0,
+			'(xxx) xxx-xx-xx'
+		))
 		.to.deep.equal
 		({
 			text: '(800) 555-35-35',
@@ -62,10 +60,11 @@ describe(`format`, function()
 	it('should format value with no caret position', function()
 	{
 		expect(format
-		({
-			value : '8005553535'
-		},
-		'(xxx) xxx-xx-xx'))
+		(
+			'8005553535',
+			undefined,
+			'(xxx) xxx-xx-xx'
+		))
 		.to.deep.equal
 		({
 			text: '(800) 555-35-35',
@@ -77,8 +76,8 @@ describe(`format`, function()
 	// {
 	// 	expect(format
 	// 	({
-	// 		value : '88005',
-	// 		caret : 0
+	// 		'88005',
+	// 		0
 	// 	},
 	// 	(value) =>
 	// 	{

@@ -32,7 +32,7 @@ import template_formatter from './template formatter'
 //
 // The result is `{ text: '8 (80 )', caret: 4 }`.
 //
-export default function format({ value, caret }, formatter)
+export default function format(value, caret, formatter)
 {
 	if (typeof formatter === 'string')
 	{
@@ -46,7 +46,7 @@ export default function format({ value, caret }, formatter)
 
 	if (caret >= 0)
 	{
-		let possibly_last_input_character_index
+		let possibly_last_input_character_index = -1
 
 		while (index < text.length)
 		{
@@ -59,10 +59,7 @@ export default function format({ value, caret }, formatter)
 					break
 				}
 
-				if (caret === 1)
-				{
-					possibly_last_input_character_index = index
-				}
+				possibly_last_input_character_index = index
 
 				caret--
 			}
