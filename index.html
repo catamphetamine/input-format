@@ -1,0 +1,128 @@
+
+<html>
+	<head>
+		<title>Input Format</title>
+
+		<script src="https://unpkg.com/react@15.3.1/dist/react.js"></script>
+		<script src="https://unpkg.com/react-dom@15.3.1/dist/react-dom.js"></script>
+		<script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
+
+		<script src="./input-format.min.js"></script>
+	</head>
+
+	<style>
+		body
+		{
+			padding: 40px;
+			font-family: Arial, Helvetica;
+			font-size: 20px;
+		}
+
+		input[type="tel"]
+		{
+			padding-bottom: 4px;
+			border: none;
+			border-bottom: 1px solid #0093C4;
+			outline: none;
+			font-size: inherit;
+			font-family: inherit;
+		}
+
+		h2
+		{
+			margin-top: 60px;
+			margin-bottom: 40px;
+			border-bottom: 1px solid #afafaf;
+		}
+
+		h2:first-child
+		{
+			margin-top: 0;
+		}
+
+		.section
+		{
+			margin-top: 20px;
+		}
+
+		a
+		{
+			text-decoration: none;
+			color: #0093C4;
+		}
+
+		a:hover
+		{
+			text-decoration: underline;
+		}
+
+		a.main
+		{
+			display: block;
+			font-size: 32px;
+		}
+
+		p
+		{
+			margin-top: 10px;
+			margin-bottom: 40px;
+		}
+	</style>
+
+	<body>
+		<a target="_blank" class="main" href="https://github.com/halt-hammerzeit/input-format"><code>input-format</code></a>
+
+		<p>Formatting user's text input on-the-fly</p>
+
+		<div id="content"></div>
+
+		<script type="text/babel">
+			var Content = React.createClass
+			({
+				getInitialState: function()
+				{
+					return {
+						value : undefined
+					}
+				},
+
+				render: function()
+				{
+					const library = window['input-format']
+
+					const ReactInput        = library.ReactInput
+					const templateParser    = library.templateParser
+					const templateFormatter = library.templateFormatter
+
+					return (
+						<div>
+							<ReactInput
+								autoFocus
+								type="tel"
+								value={this.state.value}
+								onChange={value => this.setState({ value })}
+								parse={templateParser('(xxx) xxx-xxxx', (character, value) =>
+								{
+									if (character >= '0' && character <= '9')
+									{
+										return character
+									}
+								})}
+								format={templateFormatter('(xxx) xxx-xxxx')}/>
+
+							<div className="section">
+								Value: {this.state.value}
+							</div>
+						</div>
+					)
+				}
+			})
+
+			ReactDOM.render
+			(
+				<Content />,
+				document.getElementById('content')
+			)
+		</script>
+	</body>
+</html>
