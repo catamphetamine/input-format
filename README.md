@@ -6,6 +6,8 @@
 
 Formatting user's text input on-the-fly
 
+[See Demo](https://halt-hammerzeit.github.io/input-format/)
+
 ## Installation
 
 ```
