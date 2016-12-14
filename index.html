@@ -67,6 +67,16 @@
 			margin-top: 10px;
 			margin-bottom: 40px;
 		}
+
+		pre
+		{
+			margin-top: 50px;
+			margin-bottom: 40px;
+			padding: 20px;
+			border: 1px solid #cfcfcf;
+			border-radius: 4px;
+			background: #fafafa;
+		}
 	</style>
 
 	<body>
@@ -94,6 +104,24 @@
 					const templateParser    = library.templateParser
 					const templateFormatter = library.templateFormatter
 
+					const code_sample =
+					`
+<ReactInput
+	autoFocus
+	type="tel"
+	value={this.state.value}
+	onChange={value => this.setState({ value })}
+	parse={templateParser('(xxx) xxx-xxxx', (character, value) =>
+	{
+		if (character >= '0' && character <= '9')
+		{
+			return character
+		}
+	})}
+	format={templateFormatter('(xxx) xxx-xxxx')}/>
+					`
+					.trim()
+
 					return (
 						<div>
 							<ReactInput
@@ -113,6 +141,8 @@
 							<div className="section">
 								Value: {this.state.value}
 							</div>
+
+							<pre>{code_sample}</pre>
 						</div>
 					)
 				}
