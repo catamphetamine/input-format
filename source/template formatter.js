@@ -1,4 +1,5 @@
 import { count_occurences } from './helpers'
+import close_braces from './close braces'
 
 // Takes a `template` where character placeholders
 // are denoted by 'x'es (e.g. 'x (xxx) xxx-xx-xx').
@@ -8,7 +9,11 @@ import { count_occurences } from './helpers'
 // If the `template` can only be partially filled
 // then it is cut off.
 //
-export default function template_formatter(template, placeholder = 'x')
+// If `should_close_braces` is `true`,
+// then it will also make sure all dangling braces are closed,
+// e.g. "8 (8" -> "8 (8  )" (iPhone style phone number input).
+//
+export default function template_formatter(template, placeholder = 'x', should_close_braces)
 {
 	if (!template)
 	{
@@ -52,6 +57,11 @@ export default function template_formatter(template, placeholder = 'x')
 					break
 				}
 			}
+		}
+
+		if (should_close_braces)
+		{
+			filled_in_template = close_braces(filled_in_template, template)
 		}
 
 		return { text: filled_in_template, template }

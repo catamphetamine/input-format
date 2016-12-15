@@ -59,7 +59,7 @@ export default function format(value, caret, formatter)
 
 			let possibly_last_input_character_index = -1
 
-			while (index < text.length)
+			while (index < text.length && index < template.length)
 			{
 				// Character placeholder found
 				if (text[index] !== template[index])

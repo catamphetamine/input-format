@@ -55,4 +55,11 @@ describe('template formatter', function()
 
 		expect(formatter('88005553535').text).to.equal('88005553535')
 	})
+
+	it('should close braces', function()
+	{
+		const formatter = template_formatter('x (xxx) xxx-xx-xx', 'x', true)
+
+		expect(formatter('88').text).to.equal('8 (8  )')
+	})
 })
