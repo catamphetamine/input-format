@@ -24,6 +24,12 @@ from './source/react input'
 
 export
 {
+	default as parseDigit
+}
+from './source/parse digit'
+
+export
+{
 	default as parse
 }
 from './source/parse'

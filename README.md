@@ -19,14 +19,14 @@ npm install input-format --save
 Phone number formatting example
 
 ```js
-import { templateParser, templateFormatter } from 'input-format'
+import { templateParser, templateFormatter, parseDigit } from 'input-format'
 
 // US phone number template
 const TEMPLATE = '(xxx) xxx-xxxx'
 
 // `parse` function parses input text characters one-by-one.
 //
-// function parse(character, value) { return character }
+// `function parse(character, value) { return character }`
 //
 // Arguments:
 //  * `character` is the currently parsed input text character.
@@ -35,17 +35,15 @@ const TEMPLATE = '(xxx) xxx-xxxx'
 // Returns:
 //  * If it returns anything (not `undefined`) then it is appended to the `value`
 //
+// `parseDigit` is an exported helper `parse` function
+// that returns `character` if it's a digit
+// (a common case, e.g. phone numbers input).
+//
 // `templateParser` wrapper is a small helper
 // which enhances `parse` function to limit `value` max length
 // to the number of "x"-es in the template.
 //
-const parse = templateParser(TEMPLATE, (character, value) =>
-{
-  if (character >= '0' && character <= '9')
-  {
-    return character
-  }
-})
+const parse = templateParser(TEMPLATE, parseDigit)
 
 // `format` function formats parsed value.
 //
