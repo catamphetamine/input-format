@@ -103,10 +103,11 @@
 					const ReactInput        = library.ReactInput
 					const templateParser    = library.templateParser
 					const templateFormatter = library.templateFormatter
+					const parseDigit        = library.parseDigit
 
 					const code_sample =
 					`
-import { ReactInput, templateFormatter, templateParser } from 'input-format'
+import { ReactInput, templateFormatter, templateParser, parseDigit } from 'input-format'
 
 const template = '(xxx) xxx-xxxx'
 
@@ -114,13 +115,7 @@ const template = '(xxx) xxx-xxxx'
 	value={this.state.value}
 	onChange={value => this.setState({ value })}
 	format={templateFormatter(template)}
-	parse={templateParser(template, (character, value) =>
-	{
-		if (character >= '0' && character <= '9')
-		{
-			return character
-		}
-	})}/>
+	parse={templateParser(template, parseDigit)}/>
 					`
 					.trim()
 
@@ -131,14 +126,8 @@ const template = '(xxx) xxx-xxxx'
 								type="tel"
 								value={this.state.value}
 								onChange={value => this.setState({ value })}
-								parse={templateParser('(xxx) xxx-xxxx', (character, value) =>
-								{
-									if (character >= '0' && character <= '9')
-									{
-										return character
-									}
-								})}
-								format={templateFormatter('(xxx) xxx-xxxx')}/>
+								parse={templateParser('(xxx) xxx-xxxx', parseDigit)}
+								format={templateFormatter('(xxx) xxx-xxxx', 'x', true)}/>
 
 							<div className="section">
 								Value: {this.state.value}
