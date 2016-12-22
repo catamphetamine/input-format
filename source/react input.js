@@ -30,7 +30,10 @@ export default class ReactInput extends React.Component
 		// This `onBlur` interceptor is a workaround for `redux-form`,
 		// so that it gets the parsed `value` in its `onBlur` handler,
 		// not the formatted text.
-		onBlur : PropTypes.func
+		onBlur : PropTypes.func,
+
+		// Passthrough
+		onKeyDown : PropTypes.func
 	}
 
 	constructor(props)
@@ -38,6 +41,7 @@ export default class ReactInput extends React.Component
 		super()
 
 		this.on_blur           = this.on_blur.bind(this)
+		this.on_key_down       = this.on_key_down.bind(this)
 		this.get_input_element = this.get_input_element.bind(this)
 
 		this.input_controller = new Input_controller(this.get_input_element, props.parse, props.format, props.onChange)
@@ -52,7 +56,7 @@ export default class ReactInput extends React.Component
 				{...rest}
 				ref={ ref => this.input = ref }
 				value={format(value === undefined ? '' : value).text}
-				onKeyDown={this.input_controller.onKeyDown}
+				onKeyDown={this.on_key_down}
 				onChange={this.input_controller.onChange}
 				onPaste={this.input_controller.onPaste}
 				onCut={this.input_controller.onCut}
@@ -78,5 +82,17 @@ export default class ReactInput extends React.Component
 		{
 			onBlur(parse(this.get_input_element().value, undefined, this.props.parse))
 		}
+	}
+
+	on_key_down(event)
+	{
+		const { onKeyDown } = this.props
+
+		if (onKeyDown)
+		{
+			onKeyDown(event)
+		}
+
+		this.input_controller.onKeyDown(event)
 	}
 }
