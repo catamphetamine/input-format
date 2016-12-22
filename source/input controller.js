@@ -37,6 +37,18 @@ export default class Input_controller
 
 	onPaste(event)
 	{
+		const input = this.get_input_element()
+
+		const selection = getSelection(input)
+
+		// If selection is made,
+		// just erase the selected text
+		// prior to pasting
+		if (selection)
+		{
+			this.erase_selection(input, selection)
+		}
+
 		this.format_input_text()
 	}
 
@@ -69,18 +81,25 @@ export default class Input_controller
 				// and don't apply any more operations to it.
 				if (selection)
 				{
-					let text = input.value
-					text = text.slice(0, selection.start) + text.slice(selection.end)
-
-					input.value = text
-					setCaretPosition(input, selection.start)
-
+					this.erase_selection(input, selection)
 					return this.format_input_text()
 				}
 
 				// Else, perform the (character erasing) operation manually
 				return this.format_input_text(operation)
 		}
+	}
+
+	// Erases the selected text inside an `<input/>`
+	erase_selection(input, selection)
+	{
+		let text = input.value
+		text = text.slice(0, selection.start) + text.slice(selection.end)
+
+		input.value = text
+		setCaretPosition(input, selection.start)
+
+		return this.format_input_text()
 	}
 
 	// Formats <input/> textual value as a phone number
