@@ -8,15 +8,13 @@ export default class Input_controller
 {
 	constructor(get_input_element, parse, format, on_change)
 	{
-		if (get_input_element instanceof Element)
+		if (typeof get_input_element !== 'function')
 		{
-			this.get_input_element = () => get_input_element
-		}
-		else
-		{
-			this.get_input_element = get_input_element
+			const element = get_input_element
+			get_input_element = () => element
 		}
 
+		this.get_input_element = get_input_element
 		this.parse = parse
 		this.format = format
 		this.on_change = on_change

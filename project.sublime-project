@@ -4,7 +4,7 @@
 		{
 			"follow_symlinks": true,
 			"path": ".",
-			"folder_exclude_patterns": ["input-format/node_modules", "input-format/coverage", "input-format/build", "input-format/lib", "project.sublime-workspace"]
+			"folder_exclude_patterns": ["input-format/node_modules", "input-format/coverage", "input-format/build", "input-format/es6", "input-format/lib", "project.sublime-workspace"]
 		}
 	],
 	"settings":

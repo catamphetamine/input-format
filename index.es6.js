@@ -2,40 +2,40 @@ export
 {
 	default as templateParser
 }
-from './source/template parser'
+from './es6/template parser'
 
 export
 {
 	default as templateFormatter
 }
-from './source/template formatter'
+from './es6/template formatter'
 
 export
 {
 	default as InputController
 }
-from './source/input controller'
+from './es6/input controller'
 
 export
 {
 	default as ReactInput
 }
-from './source/react input'
+from './es6/react input'
 
 export
 {
 	default as parseDigit
 }
-from './source/parse digit'
+from './es6/parse digit'
 
 export
 {
 	default as parse
 }
-from './source/parse'
+from './es6/parse'
 
 export
 {
 	default as format
 }
-from './source/format'
+from './es6/format'
