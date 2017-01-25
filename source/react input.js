@@ -15,16 +15,16 @@ export default class ReactInput extends React.Component
 {
 	static propTypes =
 	{
-		// Parses <input/> text into a `value`
+		// Parses a single characher of `<input/>` text
 		parse  : PropTypes.func.isRequired,
 
-		// Formats `value` into <input/> text
+		// Formats `value` into `<input/>` text
 		format : PropTypes.func.isRequired,
 
 		// Is parsed from <input/> text
 		value  : PropTypes.string,
 
-		// This handler is called each time <input/> text is changed
+		// This handler is called each time `<input/>` text is changed
 		onChange : PropTypes.func.isRequired,
 
 		// This `onBlur` interceptor is a workaround for `redux-form`,
@@ -55,12 +55,12 @@ export default class ReactInput extends React.Component
 			<input
 				{...rest}
 				ref={ ref => this.input = ref }
-				value={format(value === undefined ? '' : value).text}
-				onKeyDown={this.on_key_down}
-				onChange={this.input_controller.onChange}
-				onPaste={this.input_controller.onPaste}
-				onCut={this.input_controller.onCut}
-				onBlur={this.on_blur}/>
+				value={ format(value === undefined ? '' : value).text }
+				onKeyDown={ this.on_key_down }
+				onChange={ this.input_controller.onChange }
+				onPaste={ this.input_controller.onPaste }
+				onCut={ this.input_controller.onCut }
+				onBlur={ this.on_blur }/>
 		)
 	}
 
@@ -76,11 +76,19 @@ export default class ReactInput extends React.Component
 		const { onBlur } = this.props
 
 		// This `onBlur` interceptor is a workaround for `redux-form`,
-		// so that it gets a parsed `value` in its `onBlur` handler,
-		// not the formatted one.
+		// so that it gets the right (parsed, not the formatted one)
+		// `event.target.value` in its `onBlur` handler.
 		if (onBlur)
 		{
-			onBlur(parse(this.get_input_element().value, undefined, this.props.parse))
+			onBlur
+			({
+				...event,
+				target:
+				{
+					...event.target,
+					value: this.input_controller.getParsedValue().value
+				}
+			})
 		}
 	}
 

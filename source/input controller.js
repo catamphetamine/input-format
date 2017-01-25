@@ -136,4 +136,13 @@ export default class Input_controller
 		// so `value` may have been changed too.
 		this.on_change(value)
 	}
+
+	// Parses `<input/>` text
+	getParsedValue()
+	{
+		// <input/> DOM element
+		const input = this.get_input_element()
+
+		return parse(input.value, undefined, this.parse)
+	}
 }
