@@ -103,4 +103,9 @@ export default class ReactInput extends React.Component
 
 		this.input_controller.onKeyDown(event)
 	}
+
+	focus()
+	{
+		this.get_input_element().focus()
+	}
 }
