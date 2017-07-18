@@ -57,7 +57,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/halt-hammerzeit/input-format.git"
+    "url": "git+https://github.com/catamphetamine/input-format.git"
   },
   "keywords": [
     "input",
@@ -69,7 +69,7 @@
   "author": "Halt Hammerzeit <halt.hammerzeit.at@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/halt-hammerzeit/input-format/issues"
+    "url": "https://github.com/catamphetamine/input-format/issues"
   },
-  "homepage": "https://github.com/halt-hammerzeit/input-format#readme"
+  "homepage": "https://github.com/catamphetamine/input-format#readme"
 }

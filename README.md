@@ -2,11 +2,11 @@
 
 [![npm version](https://img.shields.io/npm/v/input-format.svg?style=flat-square)](https://www.npmjs.com/package/input-format)
 [![npm downloads](https://img.shields.io/npm/dm/input-format.svg?style=flat-square)](https://www.npmjs.com/package/input-format)
-[![coverage](https://img.shields.io/coveralls/halt-hammerzeit/input-format/master.svg?style=flat-square)](https://coveralls.io/r/halt-hammerzeit/input-format?branch=master)
+[![coverage](https://img.shields.io/coveralls/catamphetamine/input-format/master.svg?style=flat-square)](https://coveralls.io/r/catamphetamine/input-format?branch=master)
 
 Formatting user's text input on-the-fly
 
-[See Demo](https://halt-hammerzeit.github.io/input-format/)
+[See Demo](https://catamphetamine.github.io/input-format/)
 
 ## Installation
 
