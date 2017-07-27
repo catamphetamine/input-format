@@ -18,7 +18,7 @@
 			font-size: 20px;
 		}
 
-		input[type="tel"]
+		input[type="text"]
 		{
 			padding-bottom: 4px;
 			border: none;
@@ -112,10 +112,10 @@ import { ReactInput, templateFormatter, templateParser, parseDigit } from 'input
 const template = '(xxx) xxx-xxxx'
 
 <ReactInput
-	value={this.state.value}
-	onChange={value => this.setState({ value })}
-	format={templateFormatter(template)}
-	parse={templateParser(template, parseDigit)}/>
+	value={ this.state.value }
+	onChange={ value => this.setState({ value }) }
+	format={ templateFormatter(template) }
+	parse={ templateParser(template, parseDigit) }/>
 					`
 					.trim()
 
@@ -123,7 +123,7 @@ const template = '(xxx) xxx-xxxx'
 						<div>
 							<ReactInput
 								autoFocus
-								type="tel"
+								type="text"
 								value={this.state.value}
 								onChange={value => this.setState({ value })}
 								parse={templateParser('(xxx) xxx-xxxx', parseDigit)}
@@ -131,7 +131,11 @@ const template = '(xxx) xxx-xxxx'
 								onBlur={event => console.log('onBlur', event.target.value)}/>
 
 							<div className="section">
-								Value: {this.state.value}
+								Template: <code>(xxx) xxx-xxxx</code>
+							</div>
+
+							<div className="section">
+								Value: <code>{this.state.value}</code>
 							</div>
 
 							<pre>{code_sample}</pre>
