@@ -22,6 +22,9 @@ export default class ReactInput extends React.Component
 		// Formats `value` into `<input/>` text
 		format : PropTypes.func.isRequired,
 
+		// `<input/>` `type` attribute
+		type : PropTypes.string.isRequired,
+
 		// Is parsed from <input/> text
 		value  : PropTypes.string,
 
@@ -37,15 +40,19 @@ export default class ReactInput extends React.Component
 		onKeyDown : PropTypes.func
 	}
 
+	static defaultProps =
+	{
+		// `<input/>` `type` attribute
+		type : 'text'
+	}
+
 	constructor(props)
 	{
-		super()
+		super(props)
 
-		this.on_blur           = this.on_blur.bind(this)
-		this.on_key_down       = this.on_key_down.bind(this)
-		this.get_input_element = this.get_input_element.bind(this)
+		const { parse, format, onChange } = this.props
 
-		this.input_controller = new Input_controller(this.get_input_element, props.parse, props.format, props.onChange)
+		this.input_controller = new Input_controller(this.get_input_element, parse, format, onChange)
 	}
 
 	render()
@@ -66,13 +73,13 @@ export default class ReactInput extends React.Component
 	}
 
 	// Returns <input/> DOM Element
-	get_input_element()
+	get_input_element = () =>
 	{
 		return ReactDOM.findDOMNode(this.input)
 	}
 
 	// This handler is a workaround for `redux-form`
-	on_blur(event)
+	on_blur = (event) =>
 	{
 		const { onBlur } = this.props
 
@@ -100,7 +107,7 @@ export default class ReactInput extends React.Component
 		}
 	}
 
-	on_key_down(event)
+	on_key_down = (event) =>
 	{
 		const { onKeyDown } = this.props
 
