@@ -37,7 +37,10 @@ export default class ReactInput extends React.Component
 		onBlur : PropTypes.func,
 
 		// Passthrough
-		onKeyDown : PropTypes.func
+		onKeyDown : PropTypes.func,
+
+		// Get reference to input element
+		inputRef: PropTypes.func
 	}
 
 	static defaultProps =
@@ -62,7 +65,7 @@ export default class ReactInput extends React.Component
 		return (
 			<input
 				{...rest}
-				ref={ ref => this.input = ref }
+				ref={ this.assign_ref }
 				value={ format((value === undefined || value === null) ? '' : value).text }
 				onKeyDown={ this.on_key_down }
 				onChange={ this.input_controller.onChange }
@@ -70,6 +73,14 @@ export default class ReactInput extends React.Component
 				onCut={ this.input_controller.onCut }
 				onBlur={ this.on_blur }/>
 		)
+	}
+
+	assign_ref = (ref) =>
+	{
+		if (this.props.inputRef) {
+			this.props.inputRef(ref);
+		}
+		this.input = ref
 	}
 
 	// Returns <input/> DOM Element
