@@ -127,8 +127,7 @@ const template = '(xxx) xxx-xxxx'
 								value={this.state.value}
 								onChange={value => this.setState({ value })}
 								parse={templateParser('(xxx) xxx-xxxx', parseDigit)}
-								format={templateFormatter('(xxx) xxx-xxxx', 'x', true)}
-								onBlur={event => console.log('onBlur', event.target.value)}/>
+								format={templateFormatter('(xxx) xxx-xxxx', 'x', true)}/>
 
 							<div className="section">
 								Template: <code>(xxx) xxx-xxxx</code>
