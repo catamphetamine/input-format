@@ -22,6 +22,7 @@ export default class ReactInput extends React.Component
 		// Formats `value` into `<input/>` text
 		format : PropTypes.func.isRequired,
 
+		// (doesn't work)
 		// Custom `<input/>` may be supplied.
 		// Can be either a string or a React component class.
 		// Cannot be a React "stateless" (function) component.

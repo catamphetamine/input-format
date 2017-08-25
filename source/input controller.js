@@ -128,6 +128,7 @@ export default class Input_controller
 		// Set <input/> textual value manually to also set caret position
 		// and prevent React from resetting the caret position later
 		// inside subsequent `render()`.
+		// Doesn't work for custom `inputComponent`s for some reason.
 		input.value = text
 		// Set caret position (with the neccessary adjustments)
 		setCaretPosition(input, caret)
