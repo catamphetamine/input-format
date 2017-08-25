@@ -22,6 +22,9 @@ export default class ReactInput extends React.Component
 		// Formats `value` into `<input/>` text
 		format : PropTypes.func.isRequired,
 
+		// Custom `<input/>` may be supplied
+		inputComponent : PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+
 		// `<input/>` `type` attribute
 		type : PropTypes.string.isRequired,
 
@@ -42,6 +45,9 @@ export default class ReactInput extends React.Component
 
 	static defaultProps =
 	{
+		// Render basic `<input/>` component by default
+		inputComponent : 'input',
+
 		// `<input/>` `type` attribute
 		type : 'text'
 	}
@@ -55,21 +61,34 @@ export default class ReactInput extends React.Component
 		this.input_controller = new Input_controller(this.get_input_element, parse, format, onChange)
 	}
 
+	store_instance = (instance) =>
+	{
+		this.input = instance
+	}
+
 	render()
 	{
-		const { value, parse, format, ...rest } = this.props
+		const
+		{
+			value,
+			parse,
+			format,
+			inputComponent,
+			...rest
+		}
+		= this.props
 
-		return (
-			<input
-				{...rest}
-				ref={ ref => this.input = ref }
-				value={ format((value === undefined || value === null) ? '' : value).text }
-				onKeyDown={ this.on_key_down }
-				onChange={ this.input_controller.onChange }
-				onPaste={ this.input_controller.onPaste }
-				onCut={ this.input_controller.onCut }
-				onBlur={ this.on_blur }/>
-		)
+		return React.createElement(inputComponent,
+		{
+			...rest,
+			ref: this.store_instance,
+			value: format(is_empty(value) ? '' : value).text,
+			onKeyDown: this.on_key_down,
+			onChange: this.input_controller.onChange,
+			onPaste: this.input_controller.onPaste,
+			onCut: this.input_controller.onCut,
+			onBlur: this.on_blur
+		})
 	}
 
 	// Returns <input/> DOM Element
@@ -123,4 +142,9 @@ export default class ReactInput extends React.Component
 	{
 		this.get_input_element().focus()
 	}
+}
+
+function is_empty(value)
+{
+	return value === undefined || value === null
 }
