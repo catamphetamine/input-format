@@ -22,11 +22,12 @@ export default class ReactInput extends React.Component
 		// Formats `value` into `<input/>` text
 		format : PropTypes.func.isRequired,
 
-		// (doesn't work)
-		// Custom `<input/>` may be supplied.
-		// Can be either a string or a React component class.
-		// Cannot be a React "stateless" (function) component.
-		inputComponent : PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+		/**
+		 * Render custom input
+		 * @param {object} props
+		 * @return {JSX.Element} input
+		 */
+		renderInput : PropTypes.func.isRequired,
 
 		// `<input/>` `type` attribute
 		type : PropTypes.string.isRequired,
@@ -49,7 +50,11 @@ export default class ReactInput extends React.Component
 	static defaultProps =
 	{
 		// Render basic `<input/>` component by default
-		inputComponent : 'input',
+		renderInput : (props) => (
+			<input
+				{...props}
+				className={`rrui__input rrui__input-field react-phone-number-input__phone ${props.inputClassName}`} />
+		),
 
 		// `<input/>` `type` attribute
 		type : 'text'
@@ -76,28 +81,29 @@ export default class ReactInput extends React.Component
 			value,
 			parse,
 			format,
-			inputComponent,
+			renderInput,
 			...rest
 		}
 		= this.props
 
-		return React.createElement(inputComponent,
-		{
-			...rest,
-			ref: this.store_instance,
-			value: format(is_empty(value) ? '' : value).text,
-			onKeyDown: this.on_key_down,
-			onChange: this.input_controller.onChange,
-			onPaste: this.input_controller.onPaste,
-			onCut: this.input_controller.onCut,
-			onBlur: this.on_blur
-		})
+		return renderInput(
+			{
+				...rest,
+				ref: this.store_instance,
+				value: format(is_empty(value) ? '' : value).text,
+				onKeyDown: this.on_key_down,
+				onChange: this.input_controller.onChange,
+				onPaste: this.input_controller.onPaste,
+				onCut: this.input_controller.onCut,
+				onBlur: this.on_blur
+			}
+		)
 	}
 
 	// Returns <input/> DOM Element
 	get_input_element = () =>
 	{
-		return ReactDOM.findDOMNode(this.input)
+		return ReactDOM.findDOMNode(this.input).querySelector('input') || ReactDOM.findDOMNode(this.input)
 	}
 
 	// This handler is a workaround for `redux-form`
