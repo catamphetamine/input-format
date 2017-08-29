@@ -22,11 +22,13 @@ export default class ReactInput extends React.Component
 		// Formats `value` into `<input/>` text
 		format : PropTypes.func.isRequired,
 
-		// (doesn't work)
 		// Custom `<input/>` may be supplied.
-		// Can be either a string or a React component class.
-		// Cannot be a React "stateless" (function) component.
-		inputComponent : PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+		// Must be a React stateless functional component
+		// (i.e. must be a function of `props` returning a React element).
+		// Such custom component must also make sure that
+		// the `ref` property passed as part of `props`
+		// is landed on the actual `<input/>` component.
+		inputComponent : PropTypes.func.isRequired,
 
 		// `<input/>` `type` attribute
 		type : PropTypes.string.isRequired,
@@ -49,7 +51,7 @@ export default class ReactInput extends React.Component
 	static defaultProps =
 	{
 		// Render basic `<input/>` component by default
-		inputComponent : 'input',
+		inputComponent : props => React.createElement('input', props),
 
 		// `<input/>` `type` attribute
 		type : 'text'
@@ -81,8 +83,15 @@ export default class ReactInput extends React.Component
 		}
 		= this.props
 
-		return React.createElement(inputComponent,
-		{
+		// `React.createElement()` would work in this case
+		// but it would also introduce a caret reset bug:
+		// the caret position would reset on each input.
+		// The origins of this bug are unknown, they may be
+		// somehow related to the `ref` property and that's why
+		// `inputComponent` is called here as a function
+		// so that the `ref` property is not intercepted by React.
+		return inputComponent
+		({
 			...rest,
 			ref: this.store_instance,
 			value: format(is_empty(value) ? '' : value).text,

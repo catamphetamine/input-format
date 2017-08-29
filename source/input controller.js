@@ -18,22 +18,16 @@ export default class Input_controller
 		this.parse = parse
 		this.format = format
 		this.on_change = on_change
-
-		this.onCut = this.onCut.bind(this)
-		this.onPaste = this.onPaste.bind(this)
-		this.onChange = this.onChange.bind(this)
-		this.onKeyDown = this.onKeyDown.bind(this)
-		this.format_input_text = this.format_input_text.bind(this)
 	}
 
 	// Special handling for "Cut" event because
 	// it wouldn't copy to clipboard otherwise.
-	onCut(event)
+	onCut = (event) =>
 	{
 		setTimeout(this.format_input_text, 0)
 	}
 
-	onPaste(event)
+	onPaste = (event) =>
 	{
 		const input = this.get_input_element()
 
@@ -50,7 +44,7 @@ export default class Input_controller
 		this.format_input_text()
 	}
 
-	onChange(event)
+	onChange = (event) =>
 	{
 		this.format_input_text()
 	}
@@ -59,7 +53,7 @@ export default class Input_controller
 	// (hitting "Delete" or "Backspace"
 	//  at any caret position should always result in
 	//  erasing a digit)
-	onKeyDown(event)
+	onKeyDown = (event) =>
 	{
 		const operation = getOperation(event)
 
@@ -101,7 +95,7 @@ export default class Input_controller
 	}
 
 	// Formats <input/> textual value as a phone number
-	format_input_text(operation)
+	format_input_text = (operation) =>
 	{
 		// <input/> DOM element
 		const input = this.get_input_element()
