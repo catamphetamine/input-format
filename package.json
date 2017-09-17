@@ -1,6 +1,6 @@
 {
   "name": "input-format",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Formatting user's text input on-the-fly",
   "main": "index.common.js",
   "module": "index.es6.js",
@@ -66,7 +66,7 @@
     "text",
     "caret"
   ],
-  "author": "Halt Hammerzeit <halt.hammerzeit.at@gmail.com>",
+  "author": "catamphetamine <catamphetamine@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/catamphetamine/input-format/issues"
