@@ -134,6 +134,10 @@ value === '(800) 555-3535'
 caret === 4
 ```
 
+## Android
+
+There have been some [reports](https://github.com/catamphetamine/input-format/issues/2) of non-stock Android keyboards not handling caret positioning properly. I don't have such an Android phone at my disposal to debug that issue.
+
 ## Contributing
 
 After cloning this repo, ensure dependencies are installed by running:
