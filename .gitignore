@@ -29,8 +29,8 @@ npm-debug.log
 /build/
 
 # browser builds
-/bundle/
-/es6/
+/modules/
+/commonjs/
 
 # demo page
 /demo/
