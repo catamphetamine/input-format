@@ -11,7 +11,7 @@ export function getSelection(element)
 }
 
 // Key codes
-const Keys =
+export const Keys =
 {
 	Backspace : 8,
 	Delete    : 46

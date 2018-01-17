@@ -1,6 +1,6 @@
 import { count_occurences } from './helpers'
 
-export default function template_parser(template, placeholder, parse)
+export default function create_template_parser(template, placeholder, parse)
 {
 	if (typeof placeholder === 'function')
 	{

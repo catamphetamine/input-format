@@ -1,3 +1,8 @@
+0.2.0 / 17.01.2018
+==================
+
+  * Removed `InputController`, use `onChange`, `onPaste`, `onCut`, `onKeyDown` exported functions instead (this is decided to be simpler).
+
 0.1.4 / 07.02.2017
 ==================
 
