@@ -138,7 +138,8 @@ const template = '(xxx) xxx-xxxx'
 							</div>
 
 							<div className="section">
-								Value: <code>{this.state.value}</code>
+								{/* Added a hidden span to prevent height jitter */}
+								Value: <code>{this.state.value}<span style={{ visibility: 'hidden' }}>-</span></code>
 							</div>
 
 							<pre>{code_sample}</pre>
