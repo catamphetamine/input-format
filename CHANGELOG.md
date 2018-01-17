@@ -1,7 +1,7 @@
 0.2.0 / 17.01.2018
 ==================
 
-  * Removed `InputController`, use `onChange`, `onPaste`, `onCut`, `onKeyDown` exported functions instead (this is decided to be simpler).
+  * Removed the exported `InputController` class. If you didn't use the exported `InputController` class before then there's no need to change anything and just upgrade to the latest version. Otherwise use `onChange`, `onPaste`, `onCut`, `onKeyDown` exported functions instead (this is decided to be simpler).
 
 0.1.4 / 07.02.2017
 ==================
