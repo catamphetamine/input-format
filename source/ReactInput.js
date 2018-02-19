@@ -183,7 +183,7 @@ export default class ReactInput extends React.Component
 				target:
 				{
 					...event.target,
-					value: _parse(getInputElement().value, undefined, parse).value
+					value: _parse(this.getInputElement().value, undefined, parse).value
 				}
 			}
 
