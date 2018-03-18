@@ -16,7 +16,7 @@ npm install input-format --save
 
 ## Usage
 
-Phone number formatting example
+Define `parse()` and `format()` functions. For example, for parsing a phone number.
 
 ```js
 import { templateParser, templateFormatter, parseDigit } from 'input-format'
@@ -65,7 +65,9 @@ const parse = templateParser(TEMPLATE, parseDigit)
 const format = templateFormatter(TEMPLATE)
 ```
 
-React Component usage
+Then pass these `parse()` and `format()` functions to the library.
+
+React Component:
 
 ```js
 import { ReactInput } from 'input-format'
@@ -77,27 +79,33 @@ import { ReactInput } from 'input-format'
   format={format}/>
 ```
 
-Lower level API (for component developers)
+Low-level Input Component API:
 
 ```js
-import { InputController } from 'input-format'
+import
+{
+  onChange,
+  onCut,
+  onPaste,
+  onKeyDown
+}
+from 'input-format'
 
 const input = document.querySelector('input')
 
-const inputController = new InputController(input, parse, format, onChange)
-
-inputController.onCut(event)
-inputController.onPaste(event)
-inputController.onChange(event)
-inputController.onKeyDown(event)
+ onChange(event, input, parse, format, onChangeHandler)
+    onCut(event, input, parse, format, onChangeHandler)
+  onPaste(event, input, parse, format, onChangeHandler)
+onKeyDown(event, input, parse, format, onChangeHandler)
 ```
 
-Lowest level API
+Core API:
 
 ```js
 import { parse, format } from 'input-format'
 
-function parse_digit(character, value)
+// Input character parser for `parse()`.
+function _parse(character, value)
 {
   if (value.length < 10)
   {
@@ -108,7 +116,8 @@ function parse_digit(character, value)
   }
 }
 
-function format_phone(value)
+// Output text formatter for `format()`.
+function _format(value)
 {
   ...
 
@@ -119,16 +128,22 @@ function format_phone(value)
   }
 }
 
+// Testing.
+
 let value
 let text = '(800) 555-3535'
 let caret = 4 // before the first zero
 
-{ value, caret } = parse(text, caret, parse_digit)
+// `parse()`.
+
+{ value, caret } = parse(text, caret, _parse)
 
 value === '8005553535'
 caret === 2
 
-{ text, caret } = format(value, caret, format_phone)
+// `format()`.
+
+{ text, caret } = format(value, caret, _format)
 
 value === '(800) 555-3535'
 caret === 4
