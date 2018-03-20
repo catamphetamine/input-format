@@ -1,6 +1,6 @@
 import { count_occurences } from './helpers'
 
-export default function create_template_parser(template, placeholder, parse)
+export default function(template, placeholder, parse)
 {
 	if (typeof placeholder === 'function')
 	{
@@ -10,13 +10,11 @@ export default function create_template_parser(template, placeholder, parse)
 
 	const max_characters = count_occurences(placeholder, template)
 
-	return function parse_character(character, value)
+	return function(character, value)
 	{
-		if (value.length >= max_characters)
+		if (value.length < max_characters)
 		{
-			return
+			return parse(character, value)
 		}
-
-		return parse(character, value)
 	}
 }

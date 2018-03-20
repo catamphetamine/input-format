@@ -13,7 +13,7 @@ import close_braces from './close braces'
 // then it will also make sure all dangling braces are closed,
 // e.g. "8 (8" -> "8 (8  )" (iPhone style phone number input).
 //
-export default function create_template_formatter(template, placeholder = 'x', should_close_braces)
+export default function(template, placeholder = 'x', should_close_braces)
 {
 	if (!template)
 	{
