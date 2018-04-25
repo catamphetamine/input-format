@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactDOM from 'react-dom'
 
 import _parse from './parse'
 
@@ -107,7 +106,7 @@ export default class ReactInput extends React.Component
 	 */
 	getInputElement = () =>
 	{
-		return ReactDOM.findDOMNode(this.input)
+		return this.input
 	}
 
 	onChange = (event) =>
