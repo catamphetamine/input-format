@@ -128,7 +128,7 @@ export default class ReactInput extends React.Component
 		)
 	}
 
-	onPaste = () =>
+	onPaste = (event) =>
 	{
 		const
 		{
@@ -147,7 +147,7 @@ export default class ReactInput extends React.Component
 		)
 	}
 
-	onCut = () =>
+	onCut = (event) =>
 	{
 		const
 		{
