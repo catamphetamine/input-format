@@ -4,6 +4,7 @@
   "description": "Formatting user's text input on-the-fly",
   "main": "index.commonjs.js",
   "module": "index.js",
+  "sideEffects": false,
   "dependencies": {
     "babel-runtime": "^6.6.1",
     "prop-types": "^15.5.6"
