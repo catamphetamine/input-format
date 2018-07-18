@@ -1,48 +1,34 @@
 {
+	"presets":
+	[
+		"react",
+		"env"
+	],
+
+	"plugins":
+	[
+		["transform-es2015-for-of", { loose: true }],
+		"transform-object-rest-spread",
+		"transform-decorators-legacy",
+		"transform-class-properties"
+	],
+
 	"env":
 	{
-		"development":
-		{
-			"presets":
-			[
-				"react",
-				"es2015",
-				"stage-2"
-			],
-
-			"plugins":
-			[
-				"transform-runtime"
-			]
-		},
-		"commonjs":
-		{
-			"presets":
-			[
-				"react",
-				"es2015",
-				"stage-2"
-			],
-
-			"plugins":
-			[
-				"transform-runtime",
-				"transform-react-display-name"
-			]
-		},
 		"es6":
 		{
 			"presets":
 			[
 				"react",
-				["es2015", { modules: false }],
-				"stage-2"
+				["env", { modules: false }]
 			],
 
 			"plugins":
 			[
-				"transform-runtime",
-				"transform-react-display-name"
+				["transform-es2015-for-of", { loose: true }],
+				"transform-object-rest-spread",
+				"transform-decorators-legacy",
+				"transform-class-properties"
 			]
 		}
 	}

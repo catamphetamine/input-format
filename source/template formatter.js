@@ -32,7 +32,13 @@ export default function(template, placeholder = 'x', should_close_braces)
 		let value_character_index = 0
 		let filled_in_template = ''
 
-		for (const character of template)
+		// Using `.split('')` here instead of normal `for ... of`
+		// because the importing application doesn't neccessarily include an ES6 polyfill.
+		// The `.split('')` approach discards "exotic" UTF-8 characters
+		// (the ones consisting of four bytes)
+		// but template placeholder characters don't fall into that range
+		// and appending UTF-8 characters to a string in parts still works.
+		for (const character of template.split(''))
 		{
 			if (character !== placeholder)
 			{
