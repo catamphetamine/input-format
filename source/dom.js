@@ -66,7 +66,7 @@ export function setCaretPosition(element, caret_position)
 
 function isAndroid() {
 	// `navigator` is not defined when running mocha tests.
-	if (navigator && navigator.userAgent) {
+	if (typeof navigator !== 'undefined') {
 		return ANDROID_USER_AGENT_REG_EXP.test(navigator.userAgent)
 	}
 }
