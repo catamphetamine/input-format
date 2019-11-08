@@ -46,6 +46,28 @@ export function setCaretPosition(element, caret_position)
 		return
 	}
 
-	// Set caret position
-	element.setSelectionRange(caret_position, caret_position)
+	// Set caret position.
+	// There has been an issue with caret positioning on Android devices.
+	// https://github.com/catamphetamine/input-format/issues/2
+	// I was revisiting this issue and looked for similar issues in other libraries.
+	// For example, there's [`text-mask`](https://github.com/text-mask/text-mask) library.
+	// They've had exactly the same issue when the caret seemingly refused to be repositioned programmatically.
+	// The symptoms were the same: whenever the caret passed through a non-digit character of a mask (a whitespace, a bracket, a dash, etc), it looked as if it placed itself one character before its correct position.
+	// https://github.com/text-mask/text-mask/issues/300
+	// They seem to have found a basic fix for it: calling `input.setSelectionRange()` in a timeout rather than instantly for Android devices.
+	// https://github.com/text-mask/text-mask/pull/400/files
+	// I've implemented the same workaround here.
+	if (isAndroid()) {
+      setTimeout(() => element.setSelectionRange(caret_position, caret_position), 0)
+	} else {
+		element.setSelectionRange(caret_position, caret_position)
+	}
 }
+
+function isAndroid() {
+	if (navigator && navigator.userAgent) {
+		return ANDROID_USER_AGENT_REG_EXP.test(navigator.userAgent)
+	}
+}
+
+const ANDROID_USER_AGENT_REG_EXP = /Android/i
