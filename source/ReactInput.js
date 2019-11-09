@@ -31,9 +31,7 @@ export default class ReactInput extends React.Component
 		format : PropTypes.func.isRequired,
 
 		// Renders `<input/>` by default.
-		// For some reason non-default `inputComponent`
-		// will reset caret position.
-		inputComponent : PropTypes.string.isRequired,
+		inputComponent : PropTypes.elementType.isRequired,
 
 		// `<input/>` `type` attribute.
 		type : PropTypes.string.isRequired,
@@ -56,8 +54,6 @@ export default class ReactInput extends React.Component
 	static defaultProps =
 	{
 		// Renders `<input/>` by default.
-		// For some reason non-default `inputComponent`
-		// will reset caret position.
 		inputComponent : 'input',
 
 		// `<input/>` `type` attribute.
