@@ -34,18 +34,25 @@
     "test-coverage": "istanbul cover -x \"source/ReactInput.js\" -x \"locale/**\" -x \"commonjs/**\" -x \"modules/**\" -x \"*.test.js\" node_modules/mocha/bin/_mocha -- --require babel-core/register --colors --reporter dot --require ./test/setup.js \"./{,!(node_modules|commonjs|modules)/**/}*.test.js\" --recursive",
     "test-travis": "istanbul cover -x \"source/ReactInput.js\" -x \"locale/**\" -x \"commonjs/**\" -x \"modules/**\" -x \"*.test.js\" node_modules/mocha/bin/_mocha --report lcovonly -- --require babel-core/register --colors --reporter spec --require ./test/setup.js \"./{,!(node_modules|commonjs|modules)/**/}*.test.js\" --recursive",
     "browser-build": "better-npm-run browser-build",
-    "browser-build-dev": "npm run build-es6-modules && WEBPACK_ENV=dev webpack --progress --colors --watch",
+    "browser-build-react": "better-npm-run browser-build-react",
+    "browser-build-dev": "npm run build-es6-modules && webpack --progress --colors --watch",
     "clean-for-build": "rimraf ./commonjs/**/* ./modules/**/*",
     "build-commonjs-modules": "better-npm-run build-commonjs-modules",
     "build-es6-modules": "better-npm-run build-es6-modules",
-    "build": "npm-run-all clean-for-build build-commonjs-modules build-es6-modules browser-build",
+    "build": "npm-run-all clean-for-build build-commonjs-modules build-es6-modules browser-build browser-build-react",
     "prepublish": "npm-run-all build test"
   },
   "betterScripts": {
     "browser-build": {
       "command": "npm run build-es6-modules && webpack --progress --colors",
       "env": {
-        "WEBPACK_ENV": "build"
+        "WEBPACK_BUNDLE_TYPE": "default"
+      }
+    },
+    "browser-build-react": {
+      "command": "npm run build-es6-modules && webpack --progress --colors",
+      "env": {
+        "WEBPACK_BUNDLE_TYPE": "react"
       }
     },
     "build-commonjs-modules": {
