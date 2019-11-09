@@ -151,7 +151,7 @@ caret === 4
 
 ## Android
 
-There have been some [reports](https://github.com/catamphetamine/input-format/issues/2) of non-stock Android keyboards not handling caret positioning properly. I don't have such an Android phone at my disposal to debug that issue.
+There have been some [reports](https://github.com/catamphetamine/input-format/issues/2) of some Android devices not positioning the caret correctly. A workaround has been added for that. In case of any issues with Android devices, report them to the aforementioned issue.
 
 ## Contributing
 
