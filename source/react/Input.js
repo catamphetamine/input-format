@@ -28,7 +28,6 @@ function Input({
 	onChange,
 	onCut,
 	onPaste,
-	onBlur,
 	onKeyDown,
 	...rest
 }, ref) {
@@ -83,27 +82,6 @@ function Input({
 		)
 	}, [ref, parse, format, onChange, onKeyDown])
 
-	// This handler is a workaround for `redux-form`.
-	const _onBlur = useCallback((event) => {
-		// This `onBlur` interceptor is a workaround for `redux-form`,
-		// so that it gets the right (parsed, not the formatted one)
-		// `event.target.value` in its `onBlur` handler.
-		if (onBlur) {
-			const _event = {
-				...event,
-				target: {
-					...event.target,
-					value: _parse(ref.current.value, undefined, parse).value
-				}
-			}
-			// For `redux-form` event detection.
-			// https://github.com/erikras/redux-form/blob/v5/src/events/isEvent.js
-			_event.stopPropagation = event.stopPropagation
-			_event.preventDefault  = event.preventDefault
-			onBlur(_event)
-		}
-	}, [ref, onBlur])
-
 	return (
 		<InputComponent
 			{...rest}
@@ -112,8 +90,7 @@ function Input({
 			onKeyDown={_onKeyDown}
 			onChange={_onChange}
 			onPaste={_onPaste}
-			onCut={_onCut}
-			onBlur={_onBlur} />
+			onCut={_onCut} />
 	)
 }
 
@@ -137,11 +114,6 @@ Input.propTypes = {
 
 	// This handler is called each time `<input/>` text is changed.
 	onChange: PropTypes.func.isRequired,
-
-	// This `onBlur` interceptor is a workaround for `redux-form`,
-	// so that it gets the parsed `value` in its `onBlur` handler,
-	// not the formatted text.
-	onBlur: PropTypes.func,
 
 	// Passthrough
 	onKeyDown: PropTypes.func,
