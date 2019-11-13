@@ -3,8 +3,6 @@
 import React, { useCallback, useRef } from 'react'
 import PropTypes from 'prop-types'
 
-import _parse from '../parse'
-
 import {
 	onChange as onInputChange,
 	onCut as onInputCut,
