@@ -10,7 +10,7 @@ import
 	onPaste,
 	onKeyDown
 }
-from './input control'
+from './inputControl'
 
 // Usage:
 //

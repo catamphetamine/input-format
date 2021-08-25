@@ -1,4 +1,4 @@
-import template_formatter from './template formatter'
+import template_formatter from "input-format/source/templateFormatter";
 
 // Formats `value` value preserving `caret` at the same character.
 //
@@ -32,61 +32,50 @@ import template_formatter from './template formatter'
 //
 // The result is `{ text: '8 (80 )', caret: 4 }`.
 //
-export default function format(value, caret, formatter)
-{
-	if (typeof formatter === 'string')
-	{
-		formatter = template_formatter(formatter)
-	}
+export default function format(value, caret, formatter) {
+  if (typeof formatter === "string") {
+    formatter = template_formatter(formatter);
+  }
 
-	let { text, template } = formatter(value) || {}
+  let { text, template } = formatter(value) || {};
 
-	if (text === undefined)
-	{
-		 text = value
-	}
+  if (text === undefined) {
+    text = value;
+  }
 
-	if (template)
-	{
-		if (caret === undefined)
-		{
-			caret = text.length
-		}
-		else
-		{
-			let index = 0
-			let found = false
+  if (template) {
+    if (caret === undefined) {
+      caret = text.length;
+    } else {
+      let index = 0;
+      let found = false;
 
-			let possibly_last_input_character_index = -1
+      let possibly_last_input_character_index = -1;
 
-			while (index < text.length && index < template.length)
-			{
-				// Character placeholder found
-				if (text[index] !== template[index])
-				{
-					if (caret === 0)
-					{
-						found = true
-						caret = index
-						break
-					}
+      while (index < text.length && index < template.length) {
+        // Character placeholder found
+        if (text[index] !== template[index]) {
+          if (caret === 0) {
+            found = true;
+            caret = index;
+            break;
+          }
 
-					possibly_last_input_character_index = index
+          possibly_last_input_character_index = index;
 
-					caret--
-				}
+          caret--;
+        }
 
-				index++
-			}
+        index++;
+      }
 
-			// If the caret was positioned after last input character,
-			// then the text caret index is just after the last input character.
-			if (!found)
-			{
-				caret = possibly_last_input_character_index + 1
-			}
-		}
-	}
+      // If the caret was positioned after last input character,
+      // then the text caret index is just after the last input character.
+      if (!found) {
+        caret = possibly_last_input_character_index + 1;
+      }
+    }
+  }
 
-	return { text, caret }
+  return { text, caret };
 }

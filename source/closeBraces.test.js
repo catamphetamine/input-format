@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import close_braces from '../source/close braces'
+import close_braces from '../source/closeBraces'
 
 describe('close braces', function()
 {

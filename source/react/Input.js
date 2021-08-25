@@ -8,7 +8,7 @@ import {
 	onCut as onInputCut,
 	onPaste as onInputPaste,
 	onKeyDown as onInputKeyDown
-} from '../input control'
+} from '../inputControl'
 
 // Usage:
 //

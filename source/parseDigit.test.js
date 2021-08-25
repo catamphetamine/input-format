@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import parse_digit from '../source/parse digit'
+import parse_digit from '../source/parseDigit'
 
 describe('parse digit', function()
 {
