@@ -1,6 +1,6 @@
 import { count_occurences } from './helpers'
 
-export default function close_braces(retained_template, template, placeholder = 'x', empty_placeholder = ' ')
+export default function closeBraces(retained_template, template, placeholder = 'x', empty_placeholder = ' ')
 {
 	let cut_before = retained_template.length
 

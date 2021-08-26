@@ -6,7 +6,11 @@
 
 Formatting user's text input on-the-fly
 
-[See Demo](https://catamphetamine.github.io/input-format/)
+[See Demo](https://catamphetamine.gitlab.io/input-format/)
+
+## GitHub Ban
+
+On March 9th, 2020, GitHub, Inc. silently [banned](https://medium.com/@catamphetamine/how-github-blocked-me-and-all-my-libraries-c32c61f061d3) my account (and all my libraries) without any notice for an unknown reason. I opened a support ticked but they didn't answer. Because of that, I had to move all my libraries to [GitLab](https://gitlab.com/catamphetamine).
 
 ## Installation
 
@@ -82,20 +86,14 @@ import { ReactInput } from 'input-format'
 Low-level Input Component API:
 
 ```js
-import
-{
+import {
   onChange,
-  onCut,
-  onPaste,
   onKeyDown
-}
-from 'input-format'
+} from 'input-format'
 
 const input = document.querySelector('input')
 
  onChange(event, input, parse, format, onChangeHandler)
-    onCut(event, input, parse, format, onChangeHandler)
-  onPaste(event, input, parse, format, onChangeHandler)
 onKeyDown(event, input, parse, format, onChangeHandler)
 ```
 
@@ -105,22 +103,17 @@ Core API:
 import { parse, format } from 'input-format'
 
 // Input character parser for `parse()`.
-function _parse(character, value)
-{
-  if (value.length < 10)
-  {
-    if (character >= '0' && character <= '9')
-    {
+function _parse(character, value) {
+  if (value.length < 10) {
+    if (character >= '0' && character <= '9') {
       return character
     }
   }
 }
 
 // Output text formatter for `format()`.
-function _format(value)
-{
+function _format(value) {
   ...
-
   // Just as an example of a return value
   return {
     text: '(800) 555-3535',
@@ -149,9 +142,11 @@ value === '(800) 555-3535'
 caret === 4
 ```
 
+<!--
 ## Android
 
 There have been some [reports](https://github.com/catamphetamine/input-format/issues/2) of some Android devices not positioning the caret correctly. A workaround has been added for that. In case of any issues with Android devices, report them to the aforementioned issue.
+-->
 
 ## Contributing
 

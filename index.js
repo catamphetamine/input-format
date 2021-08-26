@@ -2,25 +2,19 @@ export
 {
 	default as templateParser
 }
-from './modules/template parser'
+from './modules/templateParser'
 
 export
 {
 	default as templateFormatter
 }
-from './modules/template formatter'
-
-export
-{
-	default as ReactInput
-}
-from './modules/ReactInput'
+from './modules/templateFormatter'
 
 export
 {
 	default as parseDigit
 }
-from './modules/parse digit'
+from './modules/parseDigit'
 
 export
 {
@@ -37,8 +31,11 @@ from './modules/format'
 export
 {
 	onChange,
+	onKeyDown,
+
+	// Deprecated.
+	// I don't know why these functions exist.
 	onPaste,
-	onCut,
-	onKeyDown
+	onCut
 }
-from './modules/input control'
+from './modules/inputControl'

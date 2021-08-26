@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 
-import template_formatter from '../source/template formatter'
+import template_formatter from '../source/templateFormatter'
 
-describe('template formatter', function()
+describe('templateFormatter', function()
 {
 	it('should format a phone number', function()
 	{

@@ -1,8 +1,9 @@
 import React from 'react'
 
+import ReactInput from '../react'
+
 import
 {
-	ReactInput,
 	templateParser,
 	templateFormatter,
 	parseDigit,
@@ -19,7 +20,7 @@ describe(`exports`, function()
 {
 	it(`should export ES6`, function()
 	{
-		expect(ReactInput).to.be.a('function')
+		expect(ReactInput.default.render).to.be.a('function')
 
 		templateParser('')
 		templateFormatter('')
@@ -37,8 +38,8 @@ describe(`exports`, function()
 	{
 		const Library = require('../index.commonjs')
 
-		const ReactInput = Library.ReactInput
-		expect(ReactInput).to.be.a('function')
+		const ReactInput = require('../react/index.commonjs')
+		expect(ReactInput.default.render).to.be.a('function')
 
 		Library.templateParser('')
 		Library.templateFormatter('')

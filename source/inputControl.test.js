@@ -5,20 +5,20 @@ import
 	onPaste,
 	onKeyDown
 }
-from './input control'
+from './inputControl'
 
 import { Keys } from './dom'
 
-import templateParser from './template parser'
-import templateFormatter from './template formatter'
-import parseDigit from './parse digit'
+import templateParser from './templateParser'
+import templateFormatter from './templateFormatter'
+import parseDigit from './parseDigit'
 
 // US phone number template
 const TEMPLATE = '(xxx) xxx-xxxx'
 const parse = templateParser(TEMPLATE, parseDigit)
 const format = templateFormatter(TEMPLATE)
 
-describe('input control', function()
+describe('inputControl', function()
 {
 	it('should handle onChange', function()
 	{

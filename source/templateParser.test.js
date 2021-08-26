@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 
-import template_parser from '../source/template parser'
+import template_parser from '../source/templateParser'
 
-describe('template parser', function()
+describe('templateParser', function()
 {
 	it('should parse a phone number', function()
 	{

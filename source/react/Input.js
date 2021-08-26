@@ -5,10 +5,8 @@ import PropTypes from 'prop-types'
 
 import {
 	onChange as onInputChange,
-	onCut as onInputCut,
-	onPaste as onInputPaste,
 	onKeyDown as onInputKeyDown
-} from '../input control'
+} from '../inputControl'
 
 // Usage:
 //
@@ -24,48 +22,29 @@ function Input({
 	format,
 	inputComponent: InputComponent,
 	onChange,
-	onCut,
-	onPaste,
 	onKeyDown,
 	...rest
 }, ref) {
-	const ownRef = useRef()
-	ref = ref || ownRef
+	const internalRef = useRef();
+	const setRef = useCallback((instance) => {
+		internalRef.current = instance;
+		if (ref) {
+			if (typeof ref === 'function') {
+				ref(instance)
+			} else {
+				ref.current = instance
+			}
+		}
+	}, [ref]);
 	const _onChange = useCallback((event) => {
 		return onInputChange(
 			event,
-			ref.current,
+			internalRef.current,
 			parse,
 			format,
 			onChange
 		)
-	}, [ref, parse, format, onChange])
-
-	const _onPaste = useCallback((event) => {
-		if (onPaste) {
-			onPaste(event)
-		}
-		return onInputPaste(
-			event,
-			ref.current,
-			parse,
-			format,
-			onChange
-		)
-	}, [ref, parse, format, onChange, onPaste])
-
-	const _onCut = useCallback((event) => {
-		if (onCut) {
-			onCut(event)
-		}
-		return onInputCut(
-			event,
-			ref.current,
-			parse,
-			format,
-			onChange
-		)
-	}, [ref, parse, format, onChange, onCut])
+	}, [internalRef, parse, format, onChange])
 
 	const _onKeyDown = useCallback((event) => {
 		if (onKeyDown) {
@@ -73,22 +52,20 @@ function Input({
 		}
 		return onInputKeyDown(
 			event,
-			ref.current,
+			internalRef.current,
 			parse,
 			format,
 			onChange
 		)
-	}, [ref, parse, format, onChange, onKeyDown])
+	}, [internalRef, parse, format, onChange, onKeyDown])
 
 	return (
 		<InputComponent
 			{...rest}
-			ref={ref}
+			ref={setRef}
 			value={format(isEmptyValue(value) ? '' : value).text}
 			onKeyDown={_onKeyDown}
-			onChange={_onChange}
-			onPaste={_onPaste}
-			onCut={_onCut} />
+			onChange={_onChange}/>
 	)
 }
 

@@ -1,5 +1,5 @@
 import { count_occurences } from './helpers'
-import close_braces from './close braces'
+import close_braces from './closeBraces'
 
 // Takes a `template` where character placeholders
 // are denoted by 'x'es (e.g. 'x (xxx) xxx-xx-xx').

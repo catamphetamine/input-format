@@ -1,3 +1,17 @@
+0.3.2 / 26.12.2020
+==================
+
+  * [Renamed](https://gitlab.com/catamphetamine/input-format/-/issues/2) all filenames with spaces to camelCase.
+
+0.3.0 / 15.03.2020
+==================
+
+  * Changed CDN bundle global variable names (`input-format` -> `InputFormat`, `FormattedInput` -> `InputFormat`).
+
+  * Removed `ReactInput` export from the default export. Import from `/react` subpackage instead.
+
+  * `ReactInput` uses React Hooks now.
+
 0.2.0 / 17.01.2018
 ==================
 

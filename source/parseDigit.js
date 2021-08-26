@@ -1,5 +1,5 @@
 // Copied from `libphonenumber-js`:
-// https://github.com/catamphetamine/libphonenumber-js/blob/master/source/parse.js
+// https://gitlab.com/catamphetamine/libphonenumber-js/blob/master/source/parse.js
 //
 // These mappings map a character (key) to a specific digit that should
 // replace it for normalization purposes. Non-European digits that
