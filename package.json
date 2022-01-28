@@ -1,6 +1,6 @@
 {
   "name": "input-format",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Formatting user's text input on-the-fly",
   "main": "index.commonjs.js",
   "module": "index.js",

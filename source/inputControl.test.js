@@ -27,9 +27,11 @@ describe('inputControl', function()
 			value: '1234567-',
 			selectionStart: 5,
 			selectionEnd: 6,
-			setSelectionRange(position)
-			{
+			setSelectionRange(position) {
 				this.selectionStart = position
+			},
+			hasAttribute(attribute) {
+				return false
 			}
 		}
 
@@ -50,9 +52,11 @@ describe('inputControl', function()
 			value: '1234567-',
 			selectionStart: 5,
 			selectionEnd: 6,
-			setSelectionRange(position)
-			{
+			setSelectionRange(position) {
 				this.selectionStart = position
+			},
+			hasAttribute(attribute) {
+				return false
 			}
 		}
 
@@ -78,9 +82,11 @@ describe('inputControl', function()
 			value: '1234567-',
 			selectionStart: 5,
 			selectionEnd: 5,
-			setSelectionRange(position)
-			{
+			setSelectionRange(position) {
 				this.selectionStart = position
+			},
+			hasAttribute(attribute) {
+				return false
 			}
 		}
 
@@ -101,9 +107,11 @@ describe('inputControl', function()
 			value: '1234567-',
 			selectionStart: 5,
 			selectionEnd: 6,
-			setSelectionRange(position)
-			{
+			setSelectionRange(position) {
 				this.selectionStart = position
+			},
+			hasAttribute(attribute) {
+				return false
 			}
 		}
 
@@ -124,9 +132,11 @@ describe('inputControl', function()
 			value: '1234567-',
 			selectionStart: 5,
 			selectionEnd: 6,
-			setSelectionRange(position)
-			{
+			setSelectionRange(position) {
 				this.selectionStart = position
+			},
+			hasAttribute(attribute) {
+				return false
 			}
 		}
 
@@ -147,9 +157,11 @@ describe('inputControl', function()
 			value: '1234567-',
 			selectionStart: 5,
 			selectionEnd: 5,
-			setSelectionRange(position)
-			{
+			setSelectionRange(position) {
 				this.selectionStart = position
+			},
+			hasAttribute(attribute) {
+				return false
 			}
 		}
 
@@ -176,9 +188,11 @@ describe('inputControl', function()
 			value: '1234567-',
 			selectionStart: 5,
 			selectionEnd: 5,
-			setSelectionRange(position)
-			{
+			setSelectionRange(position) {
 				this.selectionStart = position
+			},
+			hasAttribute(attribute) {
+				return false
 			}
 		}
 
@@ -205,9 +219,11 @@ describe('inputControl', function()
 			value: '1234567-',
 			selectionStart: 4,
 			selectionEnd: 6,
-			setSelectionRange(position)
-			{
+			setSelectionRange(position) {
 				this.selectionStart = position
+			},
+			hasAttribute(attribute) {
+				return false
 			}
 		}
 
@@ -234,9 +250,11 @@ describe('inputControl', function()
 			value: '1234567-',
 			selectionStart: 4,
 			selectionEnd: 6,
-			setSelectionRange(position)
-			{
+			setSelectionRange(position) {
 				this.selectionStart = position
+			},
+			hasAttribute(attribute) {
+				return false
 			}
 		}
 

@@ -4,6 +4,7 @@ import format from './format'
 
 import
 {
+	isReadOnly,
 	getOperation,
 	getSelection,
 	getCaretPosition,
@@ -15,6 +16,10 @@ from './dom'
 // I don't know why this function exists.
 export function onCut(event, input, _parse, _format, on_change)
 {
+	if (isReadOnly(input)) {
+		return
+	}
+
 	// The actual cut hasn't happened just yet hence the timeout.
 	setTimeout(() => formatInputText(input, _parse, _format, undefined, on_change), 0)
 }
@@ -23,6 +28,10 @@ export function onCut(event, input, _parse, _format, on_change)
 // I don't know why this function exists.
 export function onPaste(event, input, _parse, _format, on_change)
 {
+	if (isReadOnly(input)) {
+		return
+	}
+
 	const selection = getSelection(input)
 
 	// If selection is made,
@@ -60,6 +69,10 @@ export function onChange(event, input, _parse, _format, on_change)
 // following the logic described above.
 export function onKeyDown(event, input, _parse, _format, on_change)
 {
+	if (isReadOnly(input)) {
+		return
+	}
+
 	const operation = getOperation(event)
 	switch (operation)
 	{

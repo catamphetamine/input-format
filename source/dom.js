@@ -1,3 +1,8 @@
+export function isReadOnly(element)
+{
+	return element.hasAttribute('readonly')
+}
+
 // Gets <input/> selection bounds
 export function getSelection(element)
 {
