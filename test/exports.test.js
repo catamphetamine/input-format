@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ReactInput from '../react'
+import ReactInput from '../react/index.js'
 
 import
 {
@@ -14,13 +14,17 @@ import
 	onCut,
 	onKeyDown
 }
-from '../index'
+from '../index.js'
+
+import Library from '../index.cjs'
+
+import ReactInputLibrary from '../react/index.cjs'
 
 describe(`exports`, function()
 {
 	it(`should export ES6`, function()
 	{
-		expect(ReactInput.default.render).to.be.a('function')
+		expect(ReactInput.render).to.be.a('function')
 
 		templateParser('')
 		templateFormatter('')
@@ -36,10 +40,7 @@ describe(`exports`, function()
 
 	it(`should export CommonJS`, function()
 	{
-		const Library = require('../index.commonjs')
-
-		const ReactInput = require('../react/index.commonjs')
-		expect(ReactInput.default.render).to.be.a('function')
+		expect(ReactInputLibrary.default.render).to.be.a('function')
 
 		Library.templateParser('')
 		Library.templateFormatter('')

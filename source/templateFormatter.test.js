@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import template_formatter from '../source/templateFormatter'
+import template_formatter from './templateFormatter.js'
 
 describe('templateFormatter', function()
 {

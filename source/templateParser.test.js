@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import template_parser from '../source/templateParser'
+import template_parser from './templateParser.js'
 
 describe('templateParser', function()
 {

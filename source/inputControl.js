@@ -1,6 +1,6 @@
-import edit   from './edit'
-import parse  from './parse'
-import format from './format'
+import edit   from './edit.js'
+import parse  from './parse.js'
+import format from './format.js'
 
 import
 {
@@ -10,7 +10,7 @@ import
 	getCaretPosition,
 	setCaretPosition
 }
-from './dom'
+from './dom.js'
 
 // Deprecated.
 // I don't know why this function exists.

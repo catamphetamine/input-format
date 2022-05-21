@@ -1,45 +1,60 @@
 {
   "name": "input-format",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Formatting user's text input on-the-fly",
-  "main": "index.commonjs.js",
+  "main": "index.cjs",
   "module": "index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "require": "./index.cjs"
+    },
+    "./react": {
+      "types": "./react/index.d.ts",
+      "import": "./react/index.js",
+      "require": "./react/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
   "sideEffects": false,
   "dependencies": {
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.8.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.5",
-    "@babel/node": "^7.4.5",
-    "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "@babel/plugin-transform-for-of": "^7.4.4",
-    "@babel/preset-env": "^7.12.7",
-    "@babel/preset-react": "^7.8.3",
-    "@babel/register": "^7.4.4",
-    "chai": "^3.5.0",
-    "cross-env": "^7.0.2",
-    "istanbul": "^1.0.0-alpha.2",
-    "mocha": "^5.0.5",
-    "npm-run-all": "^1.4.0",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
-    "rimraf": "^2.5.0",
-    "rollup": "^2.0.6",
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.0",
+    "@babel/node": "^7.17.10",
+    "@babel/plugin-transform-for-of": "^7.18.1",
+    "@babel/preset-env": "^7.18.0",
+    "@babel/preset-react": "^7.17.12",
+    "@babel/register": "^7.17.7",
+    "chai": "^4.3.6",
+    "cross-env": "^7.0.3",
+    "istanbul": "^1.1.0-alpha.1",
+    "mocha": "^10.0.0",
+    "npm-run-all": "^4.1.5",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.74.1",
     "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-terser": "^5.3.0",
-    "sinon": "^1.17.6"
+    "rollup-plugin-terser": "^7.0.2",
+    "sinon": "^14.0.0"
   },
   "scripts": {
-    "test": "mocha --require @babel/register --colors --bail --reporter spec --require ./test/setup.js \"./{,!(node_modules|commonjs|modules)/**/}*.test.js\"  --recursive",
+    "test": "node --experimental-json-modules node_modules/mocha/bin/_mocha --bail --require ./test/setup.js \"source/**/*.test.js\" \"test/**/*.test.js\"",
     "test-coverage": "istanbul cover -x \"source/ReactInput.js\" -x \"locale/**\" -x \"commonjs/**\" -x \"modules/**\" -x \"*.test.js\" node_modules/mocha/bin/_mocha -- --require babel-core/register --colors --reporter dot --require ./test/setup.js \"./{,!(node_modules|commonjs|modules)/**/}*.test.js\" --recursive",
     "test-travis": "istanbul cover -x \"source/ReactInput.js\" -x \"locale/**\" -x \"commonjs/**\" -x \"modules/**\" -x \"*.test.js\" node_modules/mocha/bin/_mocha --report lcovonly -- --require babel-core/register --colors --reporter spec --require ./test/setup.js \"./{,!(node_modules|commonjs|modules)/**/}*.test.js\" --recursive",
-    "browser-build": "rollup --config rollup.config.js",
+    "browser-build": "rollup --config rollup.config.mjs",
     "clean-for-build": "rimraf ./commonjs/**/* ./modules/**/*",
+    "build-commonjs": "npm-run-all build-commonjs-modules build-commonjs-package.json",
+    "build-commonjs-package.json": "node runnable/create-commonjs-package-json.js",
     "build-commonjs-modules": "cross-env BABEL_ENV=commonjs babel ./source --out-dir ./commonjs --source-maps",
     "build-es6-modules": "cross-env BABEL_ENV=es6 babel ./source --out-dir ./modules --source-maps",
-    "build": "npm-run-all clean-for-build build-commonjs-modules build-es6-modules browser-build",
-    "prepublish": "npm-run-all build test"
+    "build": "npm-run-all clean-for-build build-commonjs build-es6-modules browser-build",
+    "prepublishOnly": "npm-run-all build test"
   },
   "repository": {
     "type": "git",

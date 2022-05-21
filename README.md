@@ -20,7 +20,17 @@ npm install input-format --save
 
 ## Usage
 
-Define `parse()` and `format()` functions. For example, for parsing a phone number.
+Start with defining `parse()` and `format()` functions:
+
+* `parse()` function parses a single character from an input string (will be called for each character in the input string). After parsing each subsequent character, it returns the entire parsed `value: string` so far.
+* `format()` function formats the entire parsed value back to a stringified representation. Returns an object of shape: `{ value: string, template: string }`.
+
+Because "masked input" is a common use case, this library also provides `parse()` and `format()` function creators from a template:
+
+* `templateParser()` creates a `parse()` function from a `template`.
+* `templateFormatter()` creates a `format()` function from a `template`.
+
+An example for parsing and formatting a US phone number:
 
 ```js
 import { templateParser, templateFormatter, parseDigit } from 'input-format'
@@ -69,21 +79,26 @@ const parse = templateParser(TEMPLATE, parseDigit)
 const format = templateFormatter(TEMPLATE)
 ```
 
-Then pass these `parse()` and `format()` functions to the library.
+When `parse()` and `format()` functions have been defined, they should be used either in a DOM environment or in React.
 
-React Component:
+### React
 
 ```js
-import { ReactInput } from 'input-format'
+import ReactInput from 'input-format/react'
+
+const [phone, setPhone] = useState()
 
 <ReactInput
-  value={this.state.phone}
-  onChange={phone => this.setState({ phone })}
+  value={phone}
+  onChange={setPhone}
   parse={parse}
-  format={format}/>
+  format={format}
+/>
+
+Phone: {phone}
 ```
 
-Low-level Input Component API:
+### DOM
 
 ```js
 import {
@@ -93,11 +108,23 @@ import {
 
 const input = document.querySelector('input')
 
- onChange(event, input, parse, format, onChangeHandler)
-onKeyDown(event, input, parse, format, onChangeHandler)
+// (optional)
+const optionalOnChangeListener = (value) => {
+  console.log('Value has changed:', value)
+}
+
+input.addEventListener('change', (event) => {
+  onChange(event, input, parse, format, optionalOnChangeListener)
+})
+
+input.addEventListener('keydown', (event) => {
+  onKeyDown(event, input, parse, format, optionalOnChangeListener)
+})
 ```
 
-Core API:
+## Low-level API
+
+This is an example of using the low-level API — the exported `parse()` and `format()` functions.
 
 ```js
 import { parse, format } from 'input-format'

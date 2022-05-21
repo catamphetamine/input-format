@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import parse from '../source/parse'
+import parse from './parse.js'
 
 const parse_digits = (text, caret_position) =>
 {

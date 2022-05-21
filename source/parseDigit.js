@@ -51,7 +51,7 @@ export const DIGITS =
 	'\u06F9': '9'  // Eastern-Arabic digit 9
 }
 
-export default function(character, value)
+export default function(character)
 {
 	return DIGITS[character]
 }

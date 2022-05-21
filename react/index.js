@@ -1,1 +1,1 @@
-export { default as default } from '../modules/react/Input'
+export { default as default } from '../modules/react/Input.js'

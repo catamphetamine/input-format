@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import { count_occurences } from '../source/helpers'
+import { count_occurences } from './helpers.js'
 
 describe(`helpers`, function()
 {

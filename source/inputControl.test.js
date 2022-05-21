@@ -5,13 +5,13 @@ import
 	onPaste,
 	onKeyDown
 }
-from './inputControl'
+from './inputControl.js'
 
-import { Keys } from './dom'
+import { Keys } from './dom.js'
 
-import templateParser from './templateParser'
-import templateFormatter from './templateFormatter'
-import parseDigit from './parseDigit'
+import templateParser from './templateParser.js'
+import templateFormatter from './templateFormatter.js'
+import parseDigit from './parseDigit.js'
 
 // US phone number template
 const TEMPLATE = '(xxx) xxx-xxxx'

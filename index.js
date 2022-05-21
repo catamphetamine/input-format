@@ -2,31 +2,31 @@ export
 {
 	default as templateParser
 }
-from './modules/templateParser'
+from './modules/templateParser.js'
 
 export
 {
 	default as templateFormatter
 }
-from './modules/templateFormatter'
+from './modules/templateFormatter.js'
 
 export
 {
 	default as parseDigit
 }
-from './modules/parseDigit'
+from './modules/parseDigit.js'
 
 export
 {
 	default as parse
 }
-from './modules/parse'
+from './modules/parse.js'
 
 export
 {
 	default as format
 }
-from './modules/format'
+from './modules/format.js'
 
 export
 {
@@ -38,4 +38,4 @@ export
 	onPaste,
 	onCut
 }
-from './modules/inputControl'
+from './modules/inputControl.js'

@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { spy } from 'sinon'
 
-import { getCaretPosition, setCaretPosition, getSelection, getOperation } from '../source/dom'
+import { getCaretPosition, setCaretPosition, getSelection, getOperation } from './dom.js'
 
 describe(`DOM`, function()
 {

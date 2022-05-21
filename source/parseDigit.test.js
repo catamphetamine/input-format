@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import parseDigit from '../source/parseDigit'
+import parseDigit from './parseDigit.js'
 
 describe('parseDigit', function()
 {

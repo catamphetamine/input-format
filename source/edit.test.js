@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import edit from '../source/edit'
+import edit from './edit.js'
 
 describe(`edit`, function()
 {

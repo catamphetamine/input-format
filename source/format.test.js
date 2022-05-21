@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
-import format from '../source/format'
-import template_formatter from '../source/templateFormatter'
+import format from './format.js'
+import template_formatter from './templateFormatter.js'
 
 describe(`format`, function()
 {
