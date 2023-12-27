@@ -5,8 +5,13 @@
 // corresponding to the `caret_position` inside `text`.
 //
 // The `text` is parsed by feeding each character sequentially to
-// `parse_character(character, value)` function
+// `parse_character(character, value, context)` function
 // and appending the result (if it's not `undefined`) to `value`.
+//
+// `context` argument is just a utility empty object that is shared within the bounds
+// of parsing a single input string. The `_parse()` function could use that object
+// to store any kind of "flags" in it in order to alter its behavior based when
+// parsing next characters within the same string. Or it could completely ignore it.
 //
 // Example:
 //
@@ -19,6 +24,8 @@
 //
 export default function parse(text, caret_position, parse_character)
 {
+	const context = {}
+
 	let value = ''
 
 	let focused_input_character_index = 0
@@ -26,7 +33,7 @@ export default function parse(text, caret_position, parse_character)
 	let index = 0
 	while (index < text.length)
 	{
-		const character = parse_character(text[index], value)
+		const character = parse_character(text[index], value, context)
 
 		if (character !== undefined)
 		{

@@ -1,3 +1,15 @@
+<!--
+0.4.0 / 26.12.2023
+==================
+
+* Renamed `parse` property to `parseCharacter`.
+-->
+
+0.3.9 / 26.12.2023
+==================
+
+* Added a third argument called `context` to `parse()` function.
+
 0.3.8 / 21.05.2022
 ==================
 

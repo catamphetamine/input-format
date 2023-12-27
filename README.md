@@ -40,11 +40,16 @@ const TEMPLATE = '(xxx) xxx-xxxx'
 
 // `parse` function parses input text characters one-by-one.
 //
-// `function parse(character, value) { return character }`
+// `function parse(character, value, context) { return character }`
 //
 // Arguments:
 //  * `character` is the currently parsed input text character.
 //  * `value` is the parsed value so far.
+//  * `context` is just a utility empty object that is shared within the bounds
+//    of parsing a single input string. The `parse()` function could
+//    use that object to store any kind of "flags" in it in order to alter
+//    its behavior based when parsing next characters within the same string.
+//    Or it could completely ignore it.
 //
 // Returns:
 //  * If it returns anything (not `undefined`) then it is appended to the `value`
@@ -130,7 +135,13 @@ This is an example of using the low-level API — the exported `parse()` and `fo
 import { parse, format } from 'input-format'
 
 // Input character parser for `parse()`.
-function _parse(character, value) {
+//
+// `context` argument is just a utility empty object that is shared within the bounds
+// of parsing a single input string. The `_parse()` function could use that object
+// to store any kind of "flags" in it in order to alter its behavior based when
+// parsing next characters within the same string. Or it could completely ignore it.
+//
+function _parse(character, value, context) {
   if (value.length < 10) {
     if (character >= '0' && character <= '9') {
       return character
