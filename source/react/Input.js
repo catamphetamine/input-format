@@ -50,6 +50,11 @@ function Input({
 		if (onKeyDown) {
 			onKeyDown(event)
 		}
+		// If `onKeyDown()` handler above has called `event.preventDefault()`
+		// then ignore this `keydown` event.
+		if (event.defaultPrevented) {
+			return
+		}
 		return onInputKeyDown(
 			event,
 			internalRef.current,

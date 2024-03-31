@@ -113,17 +113,17 @@ import {
 
 const input = document.querySelector('input')
 
-// (optional)
-const optionalOnChangeListener = (value) => {
+// Get notified when the `<input/>` value changes.
+const onChangeListener = (value) => {
   console.log('Value has changed:', value)
 }
 
 input.addEventListener('change', (event) => {
-  onChange(event, input, parse, format, optionalOnChangeListener)
+  onChange(event, input, parse, format, onChangeListener)
 })
 
 input.addEventListener('keydown', (event) => {
-  onKeyDown(event, input, parse, format, optionalOnChangeListener)
+  onKeyDown(event, input, parse, format, onChangeListener)
 })
 ```
 
