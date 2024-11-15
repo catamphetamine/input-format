@@ -1,6 +1,6 @@
 {
   "name": "input-format",
-  "version": "0.3.10",
+  "version": "0.3.11",
   "description": "Formatting user's text input on-the-fly",
   "main": "index.cjs",
   "module": "index.js",
@@ -19,6 +19,18 @@
     "./package.json": "./package.json"
   },
   "sideEffects": false,
+  "peerDependencies": {
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "prop-types": "^15.8.1"
   },
