@@ -12,25 +12,45 @@ Formatting user's text input on-the-fly
 
 On March 9th, 2020, GitHub, Inc. silently [banned](https://medium.com/@catamphetamine/how-github-blocked-me-and-all-my-libraries-c32c61f061d3) my account (and all my libraries) without any notice for an unknown reason. I opened a support ticked but they didn't answer. Because of that, I had to move all my libraries to [GitLab](https://gitlab.com/catamphetamine).
 
-## Installation
+## Install
 
 ```
 npm install input-format --save
 ```
 
+## Concept
+
+`input-format` operates on two representations of the same "value":
+* A "parsed" value
+* A "formatted" value
+
+An example could be a phone number:
+* A "parsed" phone number is `"2133734253"`
+* A "formatted" phone number is `"(213) 373-4253"`
+
+When a user inputs any text into the input field, that text gets "parsed" in order to get the "parsed" `value`. After that, the "parsed" `value` is "formatted" again in order to force the input field text to adhere to that specific format.
+
+For example, consider a user that inputs `"213-373-42-53"` into the input field. That text gets "parsed" into `value: "2133734253"`. One could notice that while the "parsed" `value` is correct, the input text itself has incorrect "format", which should be fixed. So the `value` gets "formatted" using the proper format, and the resulting string `"(213) 373-4253"` is set as the input field value. This is how "parse" and "format" functions work together and are two sides of the same coin.
+
 ## Usage
 
-Start with defining `parse()` and `format()` functions:
+Start by defining `parse()` and `format()` functions:
 
-* `parse()` function parses a single character from an input string (will be called for each character in the input string). After parsing each subsequent character, it returns the entire parsed `value: string` so far.
-* `format()` function formats the entire parsed value back to a stringified representation. Returns an object of shape: `{ value: string, template: string }`.
+* `parse()` will be called for each character in the input string and its job is to "parse" each such individual character, i.e. to filter out any "punctuation". After "parsing" each individual character, `input-format` will concatenate those parsed characters into a combined "parsed" string and will set the `value` to that string.
+  * For example, when "parsing" a phone number input text `"(213) 373-4253"`, the `parse()` function would filter out any non-digit characters — `return isDigit(char) ? char : ""` — resulting in a combined "parsed" string `"2133734253"`.
+* `format()` function transforms the "parsed" value back into a "formatted" string. It should return an object of shape: `{ value: string, template: string }`, where `value: string` is a "formatted" string and `template: string` is the template that was used for "formatting".
+  * For example, when "formatting" a phone number, the `format()` function would transform a "parsed" value `"2133734253"` into a "formatted" value `"(213) 373-4253"`.
 
-Because "masked input" is a common use case, this library also provides `parse()` and `format()` function creators from a template:
+The ability to provide custom `parse()` and `format()` functions provides a degree of flexibility for this input component. However, the most common use case would still be "masked input" where the input value must adhere to a certain pre-defined "template". To support this common case, the package exports two utility functions that create `parse()` and `format()` functions from just a custom template string:
 
-* `templateParser()` creates a `parse()` function from a `template`.
-* `templateFormatter()` creates a `format()` function from a `template`.
+* `templateParser(template, parseCharacter)` creates a `parse()` function for a given `template` string.
+  * Arguments:
+    * `template: string` — A template string with `"x"` character used as a placeholder. Example: `"(xxx) xxx-xxxx"`.
+    * `parseCharacter: (string) => string` — Parses a single input character. Basically, this is the `parse()` function itself, in which case one could ask: "What's the point of calling `templateParser()` to get the `parse()` function when the `parse()` function is already known?". The answer would be: "The `parse()` function returned from `templateParser()` function has a correct maximum character limit that is derived from the template string".
+      * For example, in case of a phone number input, the `parseCharacter()` function should only leave the digits and ignore any "punctuation", so it could look like `return isDigit(char) ? char : ""`.
+* `templateFormatter(template)` creates a `format()` function for a given `template` string.
 
-An example for parsing and formatting a US phone number:
+An example of getting `parse()` and `format()` functions for a US phone number input:
 
 ```js
 import { templateParser, templateFormatter, parseDigit } from 'input-format'
@@ -84,24 +104,74 @@ const parse = templateParser(TEMPLATE, parseDigit)
 const format = templateFormatter(TEMPLATE)
 ```
 
-When `parse()` and `format()` functions have been defined, they should be used either in a DOM environment or in React.
+Having `parse()` and `format()` functions, one could use them to render the actual input component.
+
+### React Hook
+
+```js
+import { useInput } from 'input-format/react-hook'
+
+const [phone, setPhone] = useState('2133734253')
+
+// Returns "controlled" `<input/>` `props`.
+const inputProps = useInput({
+  value: phone,
+  onChange: setPhone,
+  parse: templateParser("(xxx) xxx-xxxx", parseDigit),
+  format: templateFormatter("(xxx) xxx-xxxx")
+})
+
+// Outputs "(213) 373-4253"
+<input type="tel" {...inputProps}/>
+```
+
+`useInput()` hook parameters:
+
+* `ref` — An optional `ref`. Supports both `setRef(element)` functions and `useRef()` objects.
+* `value: string?` — "Parsed" value. Can be `undefined` or `null`.
+* `onChange(value: string?)` — Will be called when a new value is "parsed". Also note that it should be a function of `value` rather than a function of `event`.
+* `parse()` — A `parse()` function.
+* `format()` — A `format()` function.
+
+`useInput()` hook returns `<input/>` props:
+
+* `ref` — Specifically, a `setRef(element)` function.
+* `value: string`
+* `onChange(event: Event)`
+* `onKeyDown(event: Event)`
+
+By default, `useInput()` hook works in "controlled" mode. It could be changed to "uncontrolled" mode, if required. In that case, pass slightly different parameters to the hook:
+
+* `value: string?` — Don't pass this parameter.
+* `defaultValue: string?` — (optional) Pass this parameter to specify the initial `value`.
+
+The `<input/>` props returned from `useInput()` hook in "uncontrolled" mode will also be slightly different:
+
+* `value: string` — This property won't be present.
+* `defaultValue: string` — This property will be present.
 
 ### React
+
+The React component is simply a wrapper around `useInput()` hook described above.
 
 ```js
 import ReactInput from 'input-format/react'
 
-const [phone, setPhone] = useState()
+const [phone, setPhone] = useState('2133734253')
 
+// Renders a "controlled" `<input/>.
 <ReactInput
   value={phone}
   onChange={setPhone}
-  parse={parse}
-  format={format}
+  parse={templateParser("(xxx) xxx-xxxx", parseDigit)}
+  format={templateFormatter("(xxx) xxx-xxxx")}
 />
 
-Phone: {phone}
+// Outputs "(213) 373-4253"
+{phone}
 ```
+
+P.S. Note that the `onChange()` property of the `<ReactInput/>` component should be a function of `value`, not a function of `event`.
 
 ### DOM
 
@@ -111,6 +181,11 @@ import {
   onKeyDown
 } from 'input-format'
 
+// `parse()` and `format()` functions should be defined.
+const parse = ...
+const format = ...
+
+// Get the `<input/>` element.
 const input = document.querySelector('input')
 
 // Get notified when the `<input/>` value changes.
@@ -118,10 +193,12 @@ const onChangeListener = (value) => {
   console.log('Value has changed:', value)
 }
 
+// Add "onchange" listener to the `<input/>` element.
 input.addEventListener('change', (event) => {
   onChange(event, input, parse, format, onChangeListener)
 })
 
+// Add "onkeydown" listener to the `<input/>` element.
 input.addEventListener('keydown', (event) => {
   onKeyDown(event, input, parse, format, onChangeListener)
 })
@@ -129,7 +206,7 @@ input.addEventListener('keydown', (event) => {
 
 ## Low-level API
 
-This is an example of using the low-level API — the exported `parse()` and `format()` functions.
+This is an example of using "low-level API" — the exported `parse()` and `format()` functions themselves — by calling them directly rather than passing them to one of the package's "high-level API" (DOM or React). For example, this "low-level API" could be used to create a new "high-level API" for some new DOM framework, or to implement an input component for a non-DOM environment.
 
 ```js
 import { parse, format } from 'input-format'

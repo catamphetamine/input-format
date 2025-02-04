@@ -1,12 +1,9 @@
 // This is just `./ReactInput.js` rewritten in Hooks.
 
-import React, { useCallback, useRef } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-import {
-	onChange as onInputChange,
-	onKeyDown as onInputKeyDown
-} from '../inputControl.js'
+import useInput from './useInput.js'
 
 // Usage:
 //
@@ -17,60 +14,33 @@ import {
 // 	format={value => ({ text: value, template: 'xxxxxxxx' })}/>
 //
 function Input({
-	value,
+	inputComponent: InputComponent = 'input',
 	parse,
 	format,
-	inputComponent: InputComponent,
+	value,
+	defaultValue,
 	onChange,
+	controlled,
 	onKeyDown,
+	// `<input/>` `type` attribute.
+	type = 'text',
 	...rest
 }, ref) {
-	const internalRef = useRef();
-	const setRef = useCallback((instance) => {
-		internalRef.current = instance;
-		if (ref) {
-			if (typeof ref === 'function') {
-				ref(instance)
-			} else {
-				ref.current = instance
-			}
-		}
-	}, [ref]);
-	const _onChange = useCallback((event) => {
-		return onInputChange(
-			event,
-			internalRef.current,
-			parse,
-			format,
-			onChange
-		)
-	}, [internalRef, parse, format, onChange])
-
-	const _onKeyDown = useCallback((event) => {
-		if (onKeyDown) {
-			onKeyDown(event)
-		}
-		// If `onKeyDown()` handler above has called `event.preventDefault()`
-		// then ignore this `keydown` event.
-		if (event.defaultPrevented) {
-			return
-		}
-		return onInputKeyDown(
-			event,
-			internalRef.current,
-			parse,
-			format,
-			onChange
-		)
-	}, [internalRef, parse, format, onChange, onKeyDown])
+	const inputProps = useInput({
+		ref,
+		parse,
+		format,
+		value,
+		defaultValue,
+		onChange,
+		controlled,
+		onKeyDown,
+		type,
+		...rest
+	})
 
 	return (
-		<InputComponent
-			{...rest}
-			ref={setRef}
-			value={format(isEmptyValue(value) ? '' : value).text}
-			onKeyDown={_onKeyDown}
-			onChange={_onChange}/>
+		<InputComponent {...inputProps}/>
 	)
 }
 
@@ -84,16 +54,23 @@ Input.propTypes = {
 	format: PropTypes.func.isRequired,
 
 	// Renders `<input/>` by default.
-	inputComponent: PropTypes.elementType.isRequired,
+	inputComponent: PropTypes.elementType,
 
 	// `<input/>` `type` attribute.
-	type: PropTypes.string.isRequired,
+	type: PropTypes.string,
 
 	// Is parsed from <input/> text.
 	value: PropTypes.string,
 
+	// An initial value for an "uncontrolled" <input/>.
+	defaultValue: PropTypes.string,
+
 	// This handler is called each time `<input/>` text is changed.
-	onChange: PropTypes.func.isRequired,
+	onChange: PropTypes.func,
+
+	// Whether this input should be "controlled" or "uncontrolled".
+	// The default value is `true` meaning "uncontrolled".
+	controlled: PropTypes.bool,
 
 	// Passthrough
 	onKeyDown: PropTypes.func,
@@ -101,16 +78,4 @@ Input.propTypes = {
 	onPaste: PropTypes.func
 }
 
-Input.defaultProps = {
-	// Renders `<input/>` by default.
-	inputComponent: 'input',
-
-	// `<input/>` `type` attribute.
-	type: 'text'
-}
-
 export default Input
-
-function isEmptyValue(value) {
-	return value === undefined || value === null
-}

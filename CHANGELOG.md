@@ -5,6 +5,12 @@
 * Renamed `parse` property to `parseCharacter`.
 -->
 
+0.3.13 / 04.02.2025
+==================
+
+* Added `/react-hook` subpackage with a `useInput()` export.
+* Added property `<ReactInput controlled={false}/>` that switches the input into "uncontrolled" mode.
+
 0.3.9 / 26.12.2023
 ==================
 

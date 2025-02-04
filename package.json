@@ -1,6 +1,6 @@
 {
   "name": "input-format",
-  "version": "0.3.12",
+  "version": "0.3.13",
   "description": "Formatting user's text input on-the-fly",
   "main": "index.cjs",
   "module": "index.js",
@@ -15,6 +15,11 @@
       "types": "./react/index.d.ts",
       "import": "./react/index.js",
       "require": "./react/index.cjs"
+    },
+    "./react-hook": {
+      "types": "./react-hook/index.d.ts",
+      "import": "./react-hook/index.js",
+      "require": "./react-hook/index.cjs"
     },
     "./package.json": "./package.json"
   },

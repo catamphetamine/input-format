@@ -2,6 +2,8 @@ import React from 'react'
 
 import ReactInput from '../react/index.js'
 
+import { useInput } from '../react-hook/index.js'
+
 import
 {
 	templateParser,
@@ -17,14 +19,16 @@ import
 from '../index.js'
 
 import Library from '../index.cjs'
-
 import ReactInputLibrary from '../react/index.cjs'
+import ReactHookLibrary from '../react-hook/index.cjs'
 
 describe(`exports`, function()
 {
 	it(`should export ES6`, function()
 	{
 		expect(ReactInput.render).to.be.a('function')
+
+		expect(useInput).to.be.a('function')
 
 		templateParser('')
 		templateFormatter('')
@@ -41,6 +45,8 @@ describe(`exports`, function()
 	it(`should export CommonJS`, function()
 	{
 		expect(ReactInputLibrary.default.render).to.be.a('function')
+
+		expect(ReactHookLibrary.useInput).to.be.a('function')
 
 		Library.templateParser('')
 		Library.templateFormatter('')

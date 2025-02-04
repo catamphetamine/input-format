@@ -157,5 +157,7 @@ function formatInputText(input, _parse, _format, operation, on_change)
 
 	// If the `<input/>` textual value did change,
 	// then the parsed `value` may have changed too.
-	on_change(value)
+	if (on_change) {
+		on_change(value)
+	}
 }

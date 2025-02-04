@@ -1,0 +1,1 @@
+export { default as useInput } from '../modules/react/useInput.js'

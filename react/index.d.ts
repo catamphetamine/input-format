@@ -13,11 +13,12 @@ type InputComponent<InputComponentProps> = (props: InputComponentProps) => JSX.E
 type DefaultInputComponentProps = React.InputHTMLAttributes<HTMLInputElement>
 
 type Props<InputComponentProps> = InputComponentProps & {
-	value?: string;
 	parse: ParseFunction;
 	format: FormatFunction;
-	type?: string;
 	inputComponent?: InputComponent<InputComponentProps>;
+	value?: string;
+	defaultValue?: string;
+	controlled?: boolean;
 	onChange?(value?: string): void;
 	onKeyDown?(value?: string): void;
 };
