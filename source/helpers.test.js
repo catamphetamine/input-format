@@ -1,3 +1,4 @@
+import { describe, it } from 'mocha'
 import { expect } from 'chai'
 
 import { count_occurences } from './helpers.js'

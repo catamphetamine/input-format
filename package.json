@@ -1,6 +1,6 @@
 {
   "name": "input-format",
-  "version": "0.3.13",
+  "version": "0.3.14",
   "description": "Formatting user's text input on-the-fly",
   "main": "index.cjs",
   "module": "index.js",
@@ -61,7 +61,8 @@
     "sinon": "^14.0.0"
   },
   "scripts": {
-    "test": "node --experimental-json-modules node_modules/mocha/bin/_mocha --bail --require ./test/setup.js \"source/**/*.test.js\" \"test/**/*.test.js\"",
+    "test": "mocha --bail \"source/**/*.test.js\" \"test/*.test.js\" \"test/!(exports)/**/*.test.js\"",
+    "test:exports": "mocha --bail \"test/exports/**/*.test.js\"",
     "test-coverage": "istanbul cover -x \"source/ReactInput.js\" -x \"locale/**\" -x \"commonjs/**\" -x \"modules/**\" -x \"*.test.js\" node_modules/mocha/bin/_mocha -- --require babel-core/register --colors --reporter dot --require ./test/setup.js \"./{,!(node_modules|commonjs|modules)/**/}*.test.js\" --recursive",
     "test-travis": "istanbul cover -x \"source/ReactInput.js\" -x \"locale/**\" -x \"commonjs/**\" -x \"modules/**\" -x \"*.test.js\" node_modules/mocha/bin/_mocha --report lcovonly -- --require babel-core/register --colors --reporter spec --require ./test/setup.js \"./{,!(node_modules|commonjs|modules)/**/}*.test.js\" --recursive",
     "browser-build": "rollup --config rollup.config.mjs",
@@ -71,7 +72,7 @@
     "build-commonjs-modules": "cross-env BABEL_ENV=commonjs babel ./source --out-dir ./commonjs --source-maps",
     "build-es6-modules": "cross-env BABEL_ENV=es6 babel ./source --out-dir ./modules --source-maps",
     "build": "npm-run-all clean-for-build build-commonjs build-es6-modules browser-build",
-    "prepublishOnly": "npm-run-all build test"
+    "prepublishOnly": "npm-run-all build test test:exports"
   },
   "repository": {
     "type": "git",

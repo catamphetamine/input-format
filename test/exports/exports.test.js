@@ -1,8 +1,11 @@
+import { describe, it } from 'mocha'
+import { expect } from 'chai'
+
 import React from 'react'
 
-import ReactInput from '../react/index.js'
+import ReactInput from '../../react/index.js'
 
-import { useInput } from '../react-hook/index.js'
+import { useInput } from '../../react-hook/index.js'
 
 import
 {
@@ -16,11 +19,11 @@ import
 	onCut,
 	onKeyDown
 }
-from '../index.js'
+from '../../index.js'
 
-import Library from '../index.cjs'
-import ReactInputLibrary from '../react/index.cjs'
-import ReactHookLibrary from '../react-hook/index.cjs'
+import Library from '../../index.cjs'
+import ReactInputLibrary from '../../react/index.cjs'
+import ReactHookLibrary from '../../react-hook/index.cjs'
 
 describe(`exports`, function()
 {

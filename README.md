@@ -144,6 +144,7 @@ By default, `useInput()` hook works in "controlled" mode. It could be changed to
 
 * `value: string?` — Don't pass this parameter.
 * `defaultValue: string?` — (optional) Pass this parameter to specify the initial `value`.
+* `controlled: boolean?` — Pass `false` as the value for this parameter.
 
 The `<input/>` props returned from `useInput()` hook in "uncontrolled" mode will also be slightly different:
 
